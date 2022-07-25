@@ -15,4 +15,14 @@ type               String[]  @default(["fruit", "herb", "vegetable"])
 seedlingPerSquare  Int
 image              String
 imagePerSquare     String
+companionPlant     Companion[] @relation("Companion_plant")
+companionCompanion Companion[] @relation("Companion_companion")
+}
+
+model Companion {
+  id         Int      @id @default(autoincrement())
+  plant      Plant    @relation(name: "Companion_plant", fields: [plantId], references: [id])
+  plantId    Int
+  companion  Plant    @relation(name: "Companion_companion", fields: [companionId], references: [id])
+  companionId Int
 }
