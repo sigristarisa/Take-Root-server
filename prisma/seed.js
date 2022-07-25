@@ -3,12 +3,12 @@ const prisma = new PrismaClient();
 
 const seed = async () => {
   await createPlants();
+  await createCompanions();
   process.exit(0);
 };
 
 const createPlants = async () => {
   const plants = [];
-
   const rawPlants = [
     {
       name: "blueberry",
@@ -269,9 +269,176 @@ const createPlants = async () => {
     plants.push(plant);
   }
 
-  console.log("how many plants", plants.length);
-
   return plants;
+};
+
+const createCompanions = async () => {
+  const companions = [];
+  const rawCompanions = [
+    { plantId: 4, companionId: 10 },
+    { plantId: 4, companionId: 29 },
+    { plantId: 4, companionId: 35 },
+    { plantId: 4, companionId: 35 },
+    { plantId: 14, companionId: 19 },
+    { plantId: 14, companionId: 21 },
+    { plantId: 14, companionId: 22 },
+    { plantId: 14, companionId: 23 },
+    { plantId: 14, companionId: 28 },
+    { plantId: 14, companionId: 30 },
+    { plantId: 14, companionId: 32 },
+    { plantId: 14, companionId: 19 },
+    { plantId: 14, companionId: 12 },
+    { plantId: 14, companionId: 19 },
+    { plantId: 14, companionId: 3 },
+    { plantId: 14, companionId: 19 },
+    { plantId: 14, companionId: 36 },
+    { plantId: 15, companionId: 21 },
+    { plantId: 15, companionId: 24 },
+    { plantId: 15, companionId: 26 },
+    { plantId: 15, companionId: 9 },
+    { plantId: 18, companionId: 7 },
+    { plantId: 19, companionId: 14 },
+    { plantId: 19, companionId: 5 },
+    { plantId: 19, companionId: 14 },
+    { plantId: 19, companionId: 26 },
+    { plantId: 19, companionId: 27 },
+    { plantId: 19, companionId: 11 },
+    { plantId: 19, companionId: 28 },
+    { plantId: 19, companionId: 29 },
+    { plantId: 19, companionId: 32 },
+    { plantId: 19, companionId: 12 },
+    { plantId: 19, companionId: 35 },
+    { plantId: 5, companionId: 19 },
+    { plantId: 5, companionId: 11 },
+    { plantId: 5, companionId: 35 },
+    { plantId: 21, companionId: 14 },
+    { plantId: 21, companionId: 15 },
+    { plantId: 21, companionId: 22 },
+    { plantId: 21, companionId: 7 },
+    { plantId: 21, companionId: 11 },
+    { plantId: 21, companionId: 28 },
+    { plantId: 21, companionId: 30 },
+    { plantId: 21, companionId: 36 },
+    { plantId: 22, companionId: 14 },
+    { plantId: 22, companionId: 21 },
+    { plantId: 22, companionId: 7 },
+    { plantId: 22, companionId: 26 },
+    { plantId: 22, companionId: 27 },
+    { plantId: 22, companionId: 28 },
+    { plantId: 22, companionId: 32 },
+    { plantId: 22, companionId: 35 },
+    { plantId: 7, companionId: 18 },
+    { plantId: 7, companionId: 21 },
+    { plantId: 7, companionId: 22 },
+    { plantId: 7, companionId: 18 },
+    { plantId: 7, companionId: 26 },
+    { plantId: 7, companionId: 27 },
+    { plantId: 23, companionId: 14 },
+    { plantId: 7, companionId: 28 },
+    { plantId: 7, companionId: 29 },
+    { plantId: 7, companionId: 33 },
+    { plantId: 7, companionId: 18 },
+    { plantId: 7, companionId: 13 },
+    { plantId: 24, companionId: 15 },
+    { plantId: 24, companionId: 26 },
+    { plantId: 24, companionId: 30 },
+    { plantId: 24, companionId: 3 },
+    { plantId: 24, companionId: 35 },
+    { plantId: 26, companionId: 15 },
+    { plantId: 26, companionId: 19 },
+    { plantId: 26, companionId: 22 },
+    { plantId: 26, companionId: 7 },
+    { plantId: 26, companionId: 24 },
+    { plantId: 26, companionId: 27 },
+    { plantId: 26, companionId: 32 },
+    { plantId: 26, companionId: 33 },
+    { plantId: 26, companionId: 3 },
+    { plantId: 9, companionId: 15 },
+    { plantId: 9, companionId: 32 },
+    { plantId: 27, companionId: 19 },
+    { plantId: 27, companionId: 22 },
+    { plantId: 27, companionId: 19 },
+    { plantId: 27, companionId: 7 },
+    { plantId: 27, companionId: 26 },
+    { plantId: 27, companionId: 3 },
+    { plantId: 27, companionId: 35 },
+    { plantId: 10, companionId: 4 },
+    { plantId: 11, companionId: 19 },
+    { plantId: 11, companionId: 5 },
+    { plantId: 11, companionId: 21 },
+    { plantId: 11, companionId: 27 },
+    { plantId: 11, companionId: 29 },
+    { plantId: 11, companionId: 35 },
+    { plantId: 28, companionId: 29 },
+    { plantId: 28, companionId: 22 },
+    { plantId: 28, companionId: 14 },
+    { plantId: 28, companionId: 19 },
+    { plantId: 28, companionId: 21 },
+    { plantId: 28, companionId: 23 },
+    { plantId: 28, companionId: 11 },
+    { plantId: 28, companionId: 30 },
+    { plantId: 28, companionId: 32 },
+    { plantId: 28, companionId: 33 },
+    { plantId: 28, companionId: 3 },
+    { plantId: 29, companionId: 4 },
+    { plantId: 29, companionId: 19 },
+    { plantId: 29, companionId: 23 },
+    { plantId: 29, companionId: 10 },
+    { plantId: 29, companionId: 11 },
+    { plantId: 29, companionId: 28 },
+    { plantId: 29, companionId: 12 },
+    { plantId: 29, companionId: 35 },
+    { plantId: 30, companionId: 14 },
+    { plantId: 30, companionId: 21 },
+    { plantId: 30, companionId: 24 },
+    { plantId: 32, companionId: 14 },
+    { plantId: 32, companionId: 15 },
+    { plantId: 32, companionId: 19 },
+    { plantId: 32, companionId: 22 },
+    { plantId: 32, companionId: 16 },
+    { plantId: 32, companionId: 9 },
+    { plantId: 32, companionId: 33 },
+    { plantId: 32, companionId: 35 },
+    { plantId: 12, companionId: 14 },
+    { plantId: 12, companionId: 19 },
+    { plantId: 12, companionId: 29 },
+    { plantId: 33, companionId: 26 },
+    { plantId: 33, companionId: 32 },
+    { plantId: 33, companionId: 3 },
+    { plantId: 3, companionId: 14 },
+    { plantId: 3, companionId: 24 },
+    { plantId: 3, companionId: 26 },
+    { plantId: 3, companionId: 27 },
+    { plantId: 3, companionId: 33 },
+    { plantId: 3, companionId: 13 },
+    { plantId: 35, companionId: 4 },
+    { plantId: 35, companionId: 19 },
+    { plantId: 35, companionId: 5 },
+    { plantId: 35, companionId: 22 },
+    { plantId: 35, companionId: 24 },
+    { plantId: 35, companionId: 11 },
+    { plantId: 35, companionId: 29 },
+    { plantId: 35, companionId: 27 },
+    { plantId: 35, companionId: 32 },
+    { plantId: 13, companionId: 23 },
+    { plantId: 36, companionId: 14 },
+    { plantId: 36, companionId: 21 },
+  ];
+
+  for (const rawCompanion of rawCompanions) {
+    const companion = await prisma.companion.create({
+      data: {
+        plant: {
+          connect: { id: rawCompanion.plantId },
+        },
+        companion: {
+          connect: { id: rawCompanion.companionId },
+        },
+      },
+    });
+    companions.push(companion);
+  }
+  return companions;
 };
 
 seed()
