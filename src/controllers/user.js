@@ -13,10 +13,10 @@ export const signUp = async (req, res) => {
     const existingEmail = await findUser("email", email);
 
     if (existingUserName) {
-      res.status(400).json({ userName: "user name already in use" });
+      res.status(400).json({ error: "user name already in use" });
     }
     if (existingEmail) {
-      res.status(400).json({ email: "email already in use" });
+      res.status(400).json({ error: "email already in use" });
     }
 
     const createdUser = await dbClient.user.create({
@@ -40,7 +40,7 @@ export const logIn = async (req, res) => {
   try {
     const existingUser = await findUser("email", email);
     if (!existingUser) {
-      return res.status(401).json({ error: "Invalid email." });
+      return res.status(401).json({ error: "Invalid email" });
     }
 
     const passwordIsValid = await bcrypt.compare(
@@ -49,7 +49,7 @@ export const logIn = async (req, res) => {
     );
 
     if (!passwordIsValid) {
-      return res.status(401).json({ error: "Invalid password." });
+      return res.status(401).json({ error: "Invalid password" });
     }
 
     const token = jwt.sign({ data: existingUser.id }, JWT_SECRET, {
