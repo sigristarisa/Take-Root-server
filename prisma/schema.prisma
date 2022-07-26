@@ -29,10 +29,10 @@ model Square {
 id                    Int @id @default(autoincrement())
 row                   Int
 column                Int
-plant                 Plant @relation(fields: [plantId], references: [id])
-plantId               Int
-raisedBed             RaisedBed @relation(fields: [raisedBedId], references: [id])
-raisedBedId           Int
+plant                 Plant? @relation(fields: [plantId], references: [id])
+plantId               Int?
+raisedBed             RaisedBed? @relation(fields: [raisedBedId], references: [id])
+raisedBedId           Int?
 }
 
 model Plant {

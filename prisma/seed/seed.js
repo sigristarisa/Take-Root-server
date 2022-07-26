@@ -1,8 +1,7 @@
-import rawPlants from "./rawPlants";
-import rawCompanions from "./rawCompanions";
-import rawNonCompanions from "./rawNonCompanions";
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import rawPlants from "./rawPlants.js";
+import rawCompanions from "./rawCompanions.js";
+import rawNonCompanions from "./rawNonCompanions.js";
+import dbClient from "../../src/helpers/dbClient.js";
 
 const seed = async () => {
   await createPlants();
@@ -15,7 +14,7 @@ const createPlants = async () => {
   const plants = [];
 
   for (const rawplant of rawPlants) {
-    const plant = await prisma.plant.create({ data: rawplant });
+    const plant = await dbClient.plant.create({ data: rawplant });
     plants.push(plant);
   }
 
@@ -26,7 +25,7 @@ const createCompanions = async () => {
   const companions = [];
 
   for (const rawCompanion of rawCompanions) {
-    const companion = await prisma.companion.create({
+    const companion = await dbClient.companion.create({
       data: {
         plant: {
           connect: { id: rawCompanion.plantId },
@@ -45,7 +44,7 @@ const createNonCompanions = async () => {
   const nonCompanions = [];
 
   for (const rawNonCompanion of rawNonCompanions) {
-    const nonCompanion = await prisma.nonCompanion.create({
+    const nonCompanion = await dbClient.nonCompanion.create({
       data: {
         plant: {
           connect: { id: rawNonCompanion.plantId },

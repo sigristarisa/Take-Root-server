@@ -1,4 +1,4 @@
-export const rawNonCompanions = [
+const rawNonCompanions = [
   { plantId: 14, nonCompanionId: 15 },
   { plantId: 14, nonCompanionId: 5 },
   { plantId: 14, nonCompanionId: 24 },
@@ -34,3 +34,5 @@ export const rawNonCompanions = [
   { plantId: 36, nonCompanionId: 30 },
   { plantId: 36, nonCompanionId: 31 },
 ];
+
+export default rawNonCompanions;
