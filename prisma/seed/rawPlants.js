@@ -1,4 +1,4 @@
-const rawPlants = [
+export const rawPlants = [
   {
     name: "blueberry",
     type: "fruit",
@@ -252,5 +252,3 @@ const rawPlants = [
     imagePerSquare: "/assets/plant-image/zucchini-perSquare.png",
   },
 ];
-
-module.exports = rawPlants;

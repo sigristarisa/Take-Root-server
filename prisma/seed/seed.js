@@ -1,6 +1,6 @@
-const rawPlants = require("./rawPlants");
-const rawCompanions = require("./rawCompanions");
-const rawNonCompanions = require("./rawNonCompanions");
+import rawPlants from "./rawPlants";
+import rawCompanions from "./rawCompanions";
+import rawNonCompanions from "./rawNonCompanions";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
