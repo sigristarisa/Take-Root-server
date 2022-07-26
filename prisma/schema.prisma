@@ -9,20 +9,30 @@ datasource db {
 }
 
 model Plant {
-id                 Int       @id @default(autoincrement())
-name               String
-type               String[]  @default(["fruit", "herb", "vegetable"])
-seedlingPerSquare  Int
-image              String
-imagePerSquare     String
-companionPlant     Companion[] @relation("Companion_plant")
-companionCompanion Companion[] @relation("Companion_companion")
+id                    Int @id @default(autoincrement())
+name                  String
+type                  String[] @default(["fruit", "herb", "vegetable"])
+seedlingPerSquare     Int
+image                 String
+imagePerSquare        String
+companionPlant        Companion[] @relation("Companion_plant")
+companionCompanion    Companion[] @relation("Companion_companion")
+nonCompanionPlant     NonCompanion[] @relation("NonCompanion_plant")
+nonCompanionCompanion NonCompanion[] @relation("NonCompanion_companion")
 }
 
 model Companion {
-  id         Int      @id @default(autoincrement())
-  plant      Plant    @relation(name: "Companion_plant", fields: [plantId], references: [id])
-  plantId    Int
-  companion  Plant    @relation(name: "Companion_companion", fields: [companionId], references: [id])
-  companionId Int
+  id                 Int @id @default(autoincrement())
+  plant              Plant @relation(name: "Companion_plant", fields: [plantId], references: [id])
+  plantId            Int
+  companion          Plant @relation(name: "Companion_companion", fields: [companionId], references: [id])
+  companionId        Int
+}
+
+model NonCompanion {
+  id                 Int @id @default(autoincrement())
+  plant              Plant @relation(name: "NonCompanion_plant", fields: [plantId], references: [id])
+  plantId            Int
+  nonCompanion       Plant @relation(name: "NonCompanion_companion", fields: [nonCompanionId], references: [id])
+  nonCompanionId     Int
 }
