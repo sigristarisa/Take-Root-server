@@ -33,3 +33,32 @@ export const signUp = async (req, res) => {
     res.status(500).json({ error: "Unable to create new user" });
   }
 };
+
+export const logIn = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const existingUser = await findUser("email", email);
+    if (!existingUser) {
+      return res.status(401).json({ error: "Invalid email." });
+    }
+
+    const passwordIsValid = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
+
+    if (!passwordIsValid) {
+      return res.status(401).json({ error: "Invalid password." });
+    }
+
+    const token = jwt.sign({ data: existingUser.id }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRY,
+    });
+
+    res.json({ data: token });
+  } catch (error) {
+    console.error("something went wrong", error.message);
+    res.status(500).json({ error: "Unable to login" });
+  }
+};
