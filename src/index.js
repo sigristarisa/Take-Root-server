@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import raisedBedRouter from "./routes/raisedBed.js";
 import squareRouter from "./routes/square.js";
+import userRouter from "./routes/user.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -14,6 +15,7 @@ app.use(express.static("public"));
 app.use("/assets", express.static("assets"));
 app.use("/raisedbed", raisedBedRouter);
 app.use("/square", squareRouter);
+app.use("/user", userRouter);
 
 app.get("*", (req, res) => {
   res.json({ ok: true });
