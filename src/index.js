@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-// import raisedBedRouter from "./routes/raisedBed";
+import raisedBedRouter from "./routes/raisedBed.js";
 import squareRouter from "./routes/square.js";
 
 const app = express();
@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.use("/assets", express.static("assets"));
-// app.use("/raisedbed", raisedBedRouter);
+app.use("/raisedbed", raisedBedRouter);
 app.use("/square", squareRouter);
 
 app.get("*", (req, res) => {
