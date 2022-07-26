@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import raisedBedRouter from "./routes/raisedBed";
+import squareRouter from "./routes/square";
 
 const app = express();
 app.disable("x-powered-by");
@@ -12,6 +13,7 @@ app.use(express.static("public"));
 
 app.use("/assets", express.static("assets"));
 app.use("/raisedbed", raisedBedRouter);
+app.use("/square", squareRouter);
 
 app.get("*", (req, res) => {
   res.json({ ok: true });
