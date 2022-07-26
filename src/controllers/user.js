@@ -5,8 +5,7 @@ import { findUser } from "../helpers/user.js";
 import dbClient from "../helpers/dbClient.js";
 
 export const signUp = async (req, res) => {
-  const { userName, email, password, userImage } = req.body;
-  const passwordHash = await bcrypt.hash(password, 8);
+  const { userName, email, password, confirmPassword, userImage } = req.body;
 
   try {
     const existingUserName = await findUser("userName", userName);
@@ -18,7 +17,11 @@ export const signUp = async (req, res) => {
     if (existingEmail) {
       res.status(400).json({ error: "email already in use" });
     }
+    if (password !== confirmPassword) {
+      res.status(400).json({ error: "Please enter the same password" });
+    }
 
+    const passwordHash = await bcrypt.hash(password, 8);
     const createdUser = await dbClient.user.create({
       data: { userName, email, password: passwordHash, userImage },
     });
