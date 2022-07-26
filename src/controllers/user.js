@@ -40,7 +40,7 @@ export const logIn = async (req, res) => {
   try {
     const existingUser = await findUser("email", email);
     if (!existingUser) {
-      return res.status(401).json({ error: "Invalid email" });
+      res.status(401).json({ error: "Invalid email." });
     }
 
     const passwordIsValid = await bcrypt.compare(
@@ -49,7 +49,7 @@ export const logIn = async (req, res) => {
     );
 
     if (!passwordIsValid) {
-      return res.status(401).json({ error: "Invalid password" });
+      res.status(401).json({ error: "Invalid password." });
     }
 
     const token = jwt.sign({ data: existingUser.id }, JWT_SECRET, {
