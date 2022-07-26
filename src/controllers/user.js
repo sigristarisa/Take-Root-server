@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET, JWT_EXPIRY } from "../helpers/config.js";
-import { findUserByEmail } from "../helpers/user.js";
+import { findUser } from "../helpers/user.js";
 import dbClient from "../helpers/dbClient.js";
 
 export const signUp = async (req, res) => {
@@ -9,10 +9,14 @@ export const signUp = async (req, res) => {
   const passwordHash = await bcrypt.hash(password, 8);
 
   try {
-    const existingUser = await findUserByEmail(email);
+    const existingUserName = await findUser("userName", userName);
+    const existingEmail = await findUser("email", email);
 
-    if (existingUser) {
-      res.json(400, { email: "Email already in use" });
+    if (existingUserName) {
+      res.status(400).json({ userName: "user name already in use" });
+    }
+    if (existingEmail) {
+      res.status(400).json({ email: "email already in use" });
     }
 
     const createdUser = await dbClient.user.create({
@@ -26,6 +30,6 @@ export const signUp = async (req, res) => {
     res.json({ data: { ...createdUser, token: token } });
   } catch (error) {
     console.error("something went wrong", error.message);
-    res.json(res, 500, "Unable to create new user");
+    res.status(500).json({ error: "Unable to create new user" });
   }
 };

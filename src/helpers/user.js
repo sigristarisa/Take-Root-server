@@ -1,9 +1,9 @@
 import dbClient from "./dbClient.js";
 
-export const findUserByEmail = async (email) => {
+export const findUser = async (key, value) => {
   const foundUser = await dbClient.user.findUnique({
     where: {
-      email,
+      [key]: value,
     },
   });
   return foundUser;
