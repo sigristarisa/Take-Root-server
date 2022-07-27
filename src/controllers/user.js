@@ -30,7 +30,7 @@ export const signUp = async (req, res) => {
       expiresIn: JWT_EXPIRY,
     });
 
-    res.json({ data: { ...createdUser, token: token } });
+    res.json({ ...createdUser, token: token });
   } catch (error) {
     console.error("something went wrong", error.message);
     res.status(500).json({ error: "Unable to create new user" });
@@ -39,6 +39,7 @@ export const signUp = async (req, res) => {
 
 export const logIn = async (req, res) => {
   const { email, password } = req.body;
+  console.log("whats in the body: ", req.body);
 
   try {
     const existingUser = await findUser("email", email);
@@ -59,7 +60,7 @@ export const logIn = async (req, res) => {
       expiresIn: JWT_EXPIRY,
     });
 
-    res.json({ data: token });
+    res.json({ ...existingUser, token: token });
   } catch (error) {
     console.error("something went wrong", error.message);
     res.status(500).json({ error: "Unable to login" });
