@@ -1,8 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET, JWT_EXPIRY } from "../helpers/config.js";
-import { findUser } from "../helpers/user.js";
-import dbClient from "../helpers/dbClient.js";
+import { findUser, createUser } from "../domain/user.js";
 
 export const signUp = async (req, res) => {
   const { userName, email, password, confirmPassword, userImage } = req.body;
@@ -22,24 +21,21 @@ export const signUp = async (req, res) => {
     }
 
     const passwordHash = await bcrypt.hash(password, 8);
-    const createdUser = await dbClient.user.create({
-      data: { userName, email, password: passwordHash, userImage },
-    });
+    const newUser = await createUser(userName, email, passwordHash, userImage);
 
-    const token = jwt.sign({ data: createdUser.id }, JWT_SECRET, {
+    const token = jwt.sign({ data: newUser.id }, JWT_SECRET, {
       expiresIn: JWT_EXPIRY,
     });
 
-    res.json({ ...createdUser, token: token });
+    res.json({ ...newUser, token: token });
   } catch (error) {
-    console.error("something went wrong", error.message);
+    console.error("What happened?: ", error.message);
     res.status(500).json({ error: "Unable to create new user" });
   }
 };
 
 export const logIn = async (req, res) => {
   const { email, password } = req.body;
-  console.log("whats in the body: ", req.body);
 
   try {
     const existingUser = await findUser("email", email);
@@ -51,7 +47,6 @@ export const logIn = async (req, res) => {
       password,
       existingUser.password
     );
-
     if (!passwordIsValid) {
       res.status(401).json({ error: "Invalid password." });
     }
@@ -62,7 +57,7 @@ export const logIn = async (req, res) => {
 
     res.json({ ...existingUser, token: token });
   } catch (error) {
-    console.error("something went wrong", error.message);
+    console.error("What happened?: ", error.message);
     res.status(500).json({ error: "Unable to login" });
   }
 };

@@ -2,8 +2,7 @@ import { createRaisedBed } from "../domain/raisedBed.js";
 import { createSquares } from "../domain/square.js";
 
 export const createRaisedBedAndSquares = async (req, res) => {
-  const userId = Number(req.params.userId);
-  const { name, row, column } = req.body;
+  const { userId, name, row, column } = req.body;
 
   try {
     const newRaisedBed = await createRaisedBed(name, userId);
