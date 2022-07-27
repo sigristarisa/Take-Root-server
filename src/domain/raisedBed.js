@@ -1,9 +1,8 @@
 import dbClient from "../helpers/dbClient.js";
 
-export const createRaisedBed = async (raisedBedName, userId) => {
+export const createRaisedBed = async (userId) => {
   const newRaisedBed = await dbClient.raisedBed.create({
     data: {
-      name: raisedBedName,
       user: {
         connect: {
           id: userId,

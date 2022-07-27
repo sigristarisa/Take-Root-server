@@ -19,9 +19,9 @@ raisedBed             RaisedBed[]
 
 model RaisedBed {
 id                    Int @id @default(autoincrement())
-name                  String
-user                  User? @relation(fields: [userId], references: [id])
-userId                Int?
+name                  String?
+user                  User @relation(fields: [userId], references: [id])
+userId                Int
 square                Square[]
 }
 
@@ -31,8 +31,8 @@ row                   Int
 column                Int
 plant                 Plant? @relation(fields: [plantId], references: [id])
 plantId               Int?
-raisedBed             RaisedBed? @relation(fields: [raisedBedId], references: [id])
-raisedBedId           Int?
+raisedBed             RaisedBed @relation(fields: [raisedBedId], references: [id])
+raisedBedId           Int
 }
 
 model Plant {
