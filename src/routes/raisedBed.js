@@ -1,9 +1,8 @@
 import { Router } from "express";
-import { createSquares } from "../controllers/square.js";
-import { createRaisedBed } from "../controllers/raisedBed.js";
+import { createRaisedBedAndSquares } from "../controllers/raisedBed.js";
 
 const router = Router();
 
-router.post("/:id", createRaisedBed, createSquares);
+router.post("/:userId", createRaisedBedAndSquares);
 
 export default router;

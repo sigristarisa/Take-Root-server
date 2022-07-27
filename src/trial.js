@@ -1,21 +1,15 @@
-const createRowColumn = (num, direction) => {
-  const rowArr = [];
-  for (let i = 0; i < num; i++) {
-    let rowObj = {};
-    rowObj[direction] = i;
-    rowArr.push(rowObj);
+const calculateSquares = (length, height, unit) => {
+  let rows;
+  let columns;
+  if (unit === "cm") {
+    rows = Math.floor(height / 30);
+    columns = Math.floor(length / 30);
   }
-  return rowArr;
+  if (unit === "feet") {
+    rows = Math.floor(height);
+    columns = Math.floor(length);
+  }
+  return { rows, columns };
 };
 
-const createSquareArr = (rows, columns) => {
-  const rowArr = createRowColumn(rows, "row");
-  const columnArr = createRowColumn(columns, "column");
-
-  const squaresArr = rowArr.flatMap(({ row }) =>
-    columnArr.map((column) => ({ ...column, row }))
-  );
-  return squaresArr;
-};
-
-console.log(createSquareArr(3, 3));
+console.log(calculateSquares(8, 6, "feet"));

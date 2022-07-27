@@ -1,21 +1,24 @@
-import dbClient from "../helpers/dbClient.js";
+import { createRaisedBed } from "../domain/raisedBed.js";
+import { createSquares } from "../domain/square.js";
 
-export const createRaisedBed = async (req, res, next) => {
-  const { name } = req.body;
+export const createRaisedBedAndSquares = async (req, res) => {
+  const userId = Number(req.params.userId);
+  const { name, row, column } = req.body;
 
   try {
-    const createdRaisedBed = await dbClient.raisedBed.create({
-      data: {
-        name: name,
-      },
-      include: {
-        square: true,
-      },
-    });
-    res.json({ data: createdRaisedBed });
+    const newRaisedBed = await createRaisedBed(name, userId);
+    if (!newRaisedBed) {
+      res.status(400).json({ error: "Unable to create new raised bed" });
+    }
+
+    const newSquares = await createSquares(newRaisedBed.id, row, column);
+    if (!newSquares) {
+      res.status(400).json({ error: "Unable to create squares" });
+    }
+
+    res.json({ data: { newRaisedBed, newSquares } });
   } catch (error) {
-    console.error("something went wrong", error.message);
-    res.status(500).json({ error: "Unable to create new raised bed" });
+    console.error("What happened?: ", error.message);
+    res.status(500).json({ error: "ERROR – Something went wrong" });
   }
-  next();
 };
