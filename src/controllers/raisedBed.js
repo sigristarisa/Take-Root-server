@@ -3,8 +3,9 @@ import { createSquares } from "../domain/square.js";
 
 export const createRaisedBedAndSquares = async (req, res) => {
   const { userId, row, column } = req.body;
+  console.log("whats in here: ", req.body);
   try {
-    const newRaisedBed = await createRaisedBed(userId);
+    const newRaisedBed = await createRaisedBed(userId, row, column);
     if (!newRaisedBed) {
       res.status(400).json({ error: "Unable to create new raised bed" });
     }
