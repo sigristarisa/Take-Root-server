@@ -1,8 +1,9 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import raisedBedRouter from "./routes/raisedBed.js";
 import userRouter from "./routes/user.js";
+import raisedBedRouter from "./routes/raisedBed.js";
+import plantRouter from "./routes/plant.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -12,8 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.use("/assets", express.static("assets"));
-app.use("/raisedbed", raisedBedRouter);
 app.use("/user", userRouter);
+app.use("/raisedbed", raisedBedRouter);
+app.use("/plant", plantRouter);
 
 app.get("*", (req, res) => {
   res.json({ ok: true });
