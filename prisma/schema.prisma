@@ -15,6 +15,8 @@ email                 String @unique
 password              String @unique
 userImage             String?
 raisedBed             RaisedBed[]
+createdAt             DateTime @default(now())
+updatedAt             DateTime @updatedAt
 }
 
 model RaisedBed {
@@ -23,6 +25,8 @@ name                  String?
 user                  User @relation(fields: [userId], references: [id])
 userId                Int
 square                Square[]
+createdAt             DateTime @default(now())
+updatedAt             DateTime @updatedAt
 }
 
 model Square {
@@ -33,6 +37,8 @@ plant                 Plant? @relation(fields: [plantId], references: [id])
 plantId               Int?
 raisedBed             RaisedBed @relation(fields: [raisedBedId], references: [id])
 raisedBedId           Int
+createdAt             DateTime @default(now())
+updatedAt             DateTime @updatedAt
 }
 
 model Plant {
