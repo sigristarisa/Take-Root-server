@@ -1,9 +1,8 @@
-import { createRaisedBed } from "../domain/raisedBed.js";
+import { createRaisedBed, findRaisedBedById } from "../domain/raisedBed.js";
 import { createSquares } from "../domain/square.js";
 
 export const createRaisedBedAndSquares = async (req, res) => {
   const { userId, row, column } = req.body;
-  console.log("whats in here: ", req.body);
   try {
     const newRaisedBed = await createRaisedBed(userId);
     if (!newRaisedBed) {
@@ -16,6 +15,22 @@ export const createRaisedBedAndSquares = async (req, res) => {
     }
 
     res.json({ data: { newRaisedBed, newSquares } });
+  } catch (error) {
+    console.error("What happened?: ", error.message);
+    res.status(500).json({ error: "ERROR – Something went wrong" });
+  }
+};
+
+export const getRaisedBedById = async (req, res) => {
+  const raisedBedId = Number(req.params.raisedBedId);
+
+  try {
+    const foundRaisedBed = await findRaisedBedById(raisedBedId);
+    if (!foundRaisedBed) {
+      res.status(400).json({ error: "Raised bed not found" });
+    }
+
+    res.json({ raisedBed: foundRaisedBed });
   } catch (error) {
     console.error("What happened?: ", error.message);
     res.status(500).json({ error: "ERROR – Something went wrong" });

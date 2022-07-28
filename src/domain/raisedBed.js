@@ -12,3 +12,11 @@ export const createRaisedBed = async (userId) => {
   });
   return newRaisedBed;
 };
+
+export const findRaisedBedById = async (raisedBedId) => {
+  const foundRaisedBed = await dbClient.raisedBed.findFirst({
+    where: { id: raisedBedId },
+  });
+
+  return foundRaisedBed;
+};
