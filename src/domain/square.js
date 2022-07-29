@@ -40,3 +40,19 @@ export const createSquares = async (raisedBedId, row, column) => {
   }
   return newSquareArr;
 };
+
+export const updateSquare = async (squareId, plantId) => {
+  console.log("hi");
+  const updatedSquare = await dbClient.square.update({
+    where: { id: squareId },
+    data: {
+      plant: {
+        connect: {
+          id: plantId,
+        },
+      },
+    },
+  });
+
+  return updatedSquare;
+};

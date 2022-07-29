@@ -11,6 +11,9 @@ export const createRaisedBed = async (userId, row, column) => {
         },
       },
     },
+    include: {
+      square: true,
+    },
   });
   console.log("is this new?: ", newRaisedBed);
   return newRaisedBed;
@@ -19,7 +22,12 @@ export const createRaisedBed = async (userId, row, column) => {
 export const findRaisedBedById = async (raisedBedId) => {
   const foundRaisedBed = await dbClient.raisedBed.findFirst({
     where: { id: raisedBedId },
+    include: {
+      square: { include: { plant: true } },
+    },
   });
 
   return foundRaisedBed;
 };
+
+// include: { user: { include: { profile: true } } }

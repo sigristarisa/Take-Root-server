@@ -3,7 +3,6 @@ import { createSquares } from "../domain/square.js";
 
 export const createRaisedBedAndSquares = async (req, res) => {
   const { userId, row, column } = req.body;
-  console.log("whats in here: ", req.body);
   try {
     const newRaisedBed = await createRaisedBed(userId, row, column);
     if (!newRaisedBed) {
