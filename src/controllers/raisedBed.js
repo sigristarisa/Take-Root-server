@@ -14,7 +14,7 @@ export const createRaisedBedAndSquares = async (req, res) => {
       res.status(400).json({ error: "Unable to create squares" });
     }
 
-    res.json({ data: { newRaisedBed, newSquares } });
+    res.json({ raisedBed: { ...newRaisedBed, square: newSquares } });
   } catch (error) {
     console.error("What happened?: ", error.message);
     res.status(500).json({ error: "ERROR – Something went wrong" });

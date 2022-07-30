@@ -42,7 +42,6 @@ export const createSquares = async (raisedBedId, row, column) => {
 };
 
 export const updateSquare = async (squareId, plantId) => {
-  console.log("hi");
   const updatedSquare = await dbClient.square.update({
     where: { id: squareId },
     data: {
@@ -55,4 +54,55 @@ export const updateSquare = async (squareId, plantId) => {
   });
 
   return updatedSquare;
+};
+
+export const findSquareById = async (squareId) => {
+  const foundSquare = await dbClient.square.findFirst({
+    where: { id: squareId },
+    include: { plant: true },
+  });
+  return foundSquare;
+};
+
+const getSquareRowColumn = async (squareId) => {
+  const foundSquare = await dbClient.square.findFirst({
+    where: { id: squareId },
+  });
+
+  return { row: foundSquare.row, column: foundSquare.column };
+};
+
+const findNearbyRowColumn = (direction) => {
+  const nearbyArr = [];
+
+  if (direction === 0) {
+    nearbyArr.push(1);
+  } else if (direction === 1) {
+    nearbyArr.push(0);
+  } else {
+    nearbyArr.push(direction - 1, direction + 1);
+  }
+
+  return nearbyArr;
+};
+
+export const findSquaresByRaisedBedId = async (raisedBedId) => {
+  const foundSquares = await dbClient.square.findMany({
+    where: { raisedBedId },
+  });
+
+  return foundSquares;
+};
+
+const findNearbySquares = async (direction, nearbyArr) => {
+  const nearbySquares = [];
+
+  for (const nearbySquare of nearbyArr) {
+    const foundSquare = await dbClient.square.findFirst({
+      where: { [direction]: nearbySquare },
+    });
+    nearbySquares.push(foundSquare);
+  }
+
+  return nearbySquares;
 };

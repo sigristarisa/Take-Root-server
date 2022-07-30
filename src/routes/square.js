@@ -1,8 +1,14 @@
 import { Router } from "express";
-import { updateSquareById } from "../controllers/square.js";
+import {
+  getSquareById,
+  updateSquareById,
+  getSquaresByRaisedBedId,
+} from "../controllers/square.js";
 
 const router = Router();
 
+router.get("/:squareId", getSquareById);
+router.get("/raisedbed/:raisedBedId", getSquaresByRaisedBedId);
 router.patch("/", updateSquareById);
 
 export default router;

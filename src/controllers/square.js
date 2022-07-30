@@ -1,4 +1,23 @@
-import { updateSquare } from "../domain/square.js";
+import {
+  findSquareById,
+  updateSquare,
+  findSquaresByRaisedBedId,
+} from "../domain/square.js";
+
+export const getSquareById = async (req, res) => {
+  const squareId = Number(req.params.squareId);
+
+  try {
+    const foundSquare = await findSquareById(squareId);
+    if (!foundSquare) {
+      res.status(400).json({ error: "Square do not exist" });
+    }
+    res.json({ data: foundSquare });
+  } catch (error) {
+    console.error("What happened?: ", error.message);
+    res.status(500).json({ error: "ERROR – Something went wrong" });
+  }
+};
 
 export const updateSquareById = async (req, res) => {
   const { squareId, plantId } = req.body;
@@ -13,4 +32,12 @@ export const updateSquareById = async (req, res) => {
     console.error("What happened?: ", error.message);
     res.status(500).json({ error: "ERROR – Something went wrong" });
   }
+};
+
+export const getSquaresByRaisedBedId = async (req, res) => {
+  const raisedBedId = Number(req.params.raisedBedId);
+
+  const foundSquares = await findSquaresByRaisedBedId(raisedBedId);
+
+  res.json({ data: foundSquares });
 };
