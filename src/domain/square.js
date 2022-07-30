@@ -64,15 +64,7 @@ export const findSquareById = async (squareId) => {
   return foundSquare;
 };
 
-const getSquareRowColumn = async (squareId) => {
-  const foundSquare = await dbClient.square.findFirst({
-    where: { id: squareId },
-  });
-
-  return { row: foundSquare.row, column: foundSquare.column };
-};
-
-const findNearbyRowColumn = (direction) => {
+export const findNearbyRowColumn = (direction) => {
   const nearbyArr = [];
 
   if (direction === 0) {
@@ -86,15 +78,7 @@ const findNearbyRowColumn = (direction) => {
   return nearbyArr;
 };
 
-export const findSquaresByRaisedBedId = async (raisedBedId) => {
-  const foundSquares = await dbClient.square.findMany({
-    where: { raisedBedId },
-  });
-
-  return foundSquares;
-};
-
-const findNearbySquares = async (direction, nearbyArr) => {
+export const findNearbySquares = async (direction, nearbyArr) => {
   const nearbySquares = [];
 
   for (const nearbySquare of nearbyArr) {

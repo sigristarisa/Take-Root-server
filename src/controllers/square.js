@@ -1,7 +1,8 @@
 import {
   findSquareById,
   updateSquare,
-  findSquaresByRaisedBedId,
+  findNearbyRowColumn,
+  findNearbySquares,
 } from "../domain/square.js";
 
 export const getSquareById = async (req, res) => {
@@ -34,10 +35,20 @@ export const updateSquareById = async (req, res) => {
   }
 };
 
-export const getSquaresByRaisedBedId = async (req, res) => {
-  const raisedBedId = Number(req.params.raisedBedId);
+export const getNearbySquares = async (req, res) => {
+  const squareId = Number(req.params.squareId);
+  const foundSquare = await findSquareById(squareId);
 
-  const foundSquares = await findSquaresByRaisedBedId(raisedBedId);
+  const nearbyRows = findNearbyRowColumn(foundSquare.row);
+  const nearbyColumns = findNearbyRowColumn(foundSquare.column);
 
-  res.json({ data: foundSquares });
+  const foundNearbySquaresRow = await findNearbySquares("row", nearbyRows);
+  const foundNearbySquaresColumn = await findNearbySquares(
+    "column",
+    nearbyColumns
+  );
+
+  res.json({
+    nearSquares: foundNearbySquaresRow.concat(foundNearbySquaresColumn),
+  });
 };
