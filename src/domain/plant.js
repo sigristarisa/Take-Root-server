@@ -9,6 +9,7 @@ export const findCompanionsByPlantId = async (plantIdArr) => {
   const companionArr = [];
 
   for (const plantId of plantIdArr) {
+    if (!plantId) continue;
     const foundCompanions = await dbClient.companion.findMany({
       where: { plantId },
     });

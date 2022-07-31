@@ -64,32 +64,71 @@ export const findSquareById = async (squareId) => {
   return foundSquare;
 };
 
-export const findNearbyRowColumn = (direction) => {
-  const nearbyArr = [];
+export const findNearbySquareId = (
+  square,
+  firstId,
+  lastId,
+  maxRow,
+  maxColumn
+) => {
+  console.log("square", square);
+  const nearbySquareIdArr = [];
+  const { id, row, column } = square;
+  const left = id - 1;
+  const right = id + 1;
+  const top = id - maxColumn;
+  const bottom = id + maxColumn;
+  console.log({ left, right, top, bottom });
 
-  if (direction === 0) {
-    nearbyArr.push(1);
-  } else if (direction === 1) {
-    nearbyArr.push(0);
+  if (id === firstId) {
+    console.log("first");
+    nearbySquareIdArr.push(right, bottom);
+  } else if (id === lastId) {
+    console.log("second");
+    nearbySquareIdArr.push(left, top);
+  } else if (row === 0) {
+    console.log("third");
+
+    nearbySquareIdArr.push(left, right, bottom);
+  } else if (column === 0) {
+    console.log("fourth");
+
+    nearbySquareIdArr.push(top, right, bottom);
+  } else if (row === maxRow) {
+    console.log("fifth");
+
+    nearbySquareIdArr.push(left, right, top);
+  } else if (column === maxColumn) {
+    console.log("sixth");
+
+    nearbySquareIdArr.push(left, top, bottom);
   } else {
-    nearbyArr.push(direction - 1, direction + 1);
+    console.log("seventh");
+
+    nearbySquareIdArr.push(left, right, top, bottom);
   }
 
-  return nearbyArr;
+  return nearbySquareIdArr;
 };
 
-export const findNearbySquaresPlantId = async (direction, nearbyArr) => {
+export const findNearbySquaresPlantId = async (
+  raisedBedId,
+  direction,
+  nearbyArr
+) => {
   const nearbySquares = [];
 
   for (const nearbySquare of nearbyArr) {
+    console.log("direction", direction);
     const foundSquare = await dbClient.square.findFirst({
-      where: { [direction]: nearbySquare },
+      where: {
+        AND: [{ raisedBedId }, { [direction]: nearbySquare }],
+      },
     });
-    console.log("foundSquare", foundSquare);
+
+    console.log("what are the nearby squares", foundSquare);
     nearbySquares.push(foundSquare.plantId);
   }
-
-  console.log("nearbySquares", nearbySquares);
 
   return nearbySquares;
 };
