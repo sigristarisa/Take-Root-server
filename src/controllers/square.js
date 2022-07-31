@@ -2,8 +2,10 @@ import {
   findSquareById,
   updateSquare,
   findNearbyRowColumn,
-  findNearbySquares,
+  findNearbySquaresPlantId,
 } from "../domain/square.js";
+
+import { findCompanionsByPlantId } from "../domain/plant.js";
 
 export const getSquareById = async (req, res) => {
   const squareId = Number(req.params.squareId);
@@ -35,20 +37,47 @@ export const updateSquareById = async (req, res) => {
   }
 };
 
-export const getNearbySquares = async (req, res) => {
+export const getNearbySquaresPlantId = async (req, res) => {
   const squareId = Number(req.params.squareId);
   const foundSquare = await findSquareById(squareId);
 
   const nearbyRows = findNearbyRowColumn(foundSquare.row);
   const nearbyColumns = findNearbyRowColumn(foundSquare.column);
 
-  const foundNearbySquaresRow = await findNearbySquares("row", nearbyRows);
-  const foundNearbySquaresColumn = await findNearbySquares(
+  const foundNearbySquaresRow = await findNearbySquaresPlantId(
+    "row",
+    nearbyRows
+  );
+  const foundNearbySquaresColumn = await findNearbySquaresPlantId(
     "column",
     nearbyColumns
   );
 
   res.json({
-    nearSquares: foundNearbySquaresRow.concat(foundNearbySquaresColumn),
+    plantId: foundNearbySquaresRow.concat(foundNearbySquaresColumn),
   });
+};
+
+export const getCompanionsBySquareId = async (req, res) => {
+  const squareId = Number(req.params.squareId);
+
+  const foundSquare = await findSquareById(squareId);
+
+  const nearbyRows = findNearbyRowColumn(foundSquare.row);
+  const nearbyColumns = findNearbyRowColumn(foundSquare.column);
+
+  const foundNearbySquaresRow = await findNearbySquaresPlantId(
+    "row",
+    nearbyRows
+  );
+  const foundNearbySquaresColumn = await findNearbySquaresPlantId(
+    "column",
+    nearbyColumns
+  );
+
+  const plantIdArr = foundNearbySquaresRow.concat(foundNearbySquaresColumn);
+
+  const foundCompanions = await findCompanionsByPlantId(plantIdArr);
+
+  res.json({ companions: foundCompanions });
 };

@@ -78,15 +78,18 @@ export const findNearbyRowColumn = (direction) => {
   return nearbyArr;
 };
 
-export const findNearbySquares = async (direction, nearbyArr) => {
+export const findNearbySquaresPlantId = async (direction, nearbyArr) => {
   const nearbySquares = [];
 
   for (const nearbySquare of nearbyArr) {
     const foundSquare = await dbClient.square.findFirst({
       where: { [direction]: nearbySquare },
     });
-    nearbySquares.push(foundSquare);
+    console.log("foundSquare", foundSquare);
+    nearbySquares.push(foundSquare.plantId);
   }
+
+  console.log("nearbySquares", nearbySquares);
 
   return nearbySquares;
 };

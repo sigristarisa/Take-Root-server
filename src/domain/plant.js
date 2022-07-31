@@ -5,16 +5,16 @@ export const findAllPlants = async () => {
   return plants;
 };
 
-export const findCompanionsByPlantId = async (plantId) => {
-  const foundCompanions = await dbClient.companion.findMany({
-    where: { plantId },
-    include: {
-      plant: true,
-      companion: true,
-    },
-  });
+export const findCompanionsByPlantId = async (plantIdArr) => {
+  const companionArr = [];
 
-  return foundCompanions;
+  for (const plantId of plantIdArr) {
+    const foundCompanions = await dbClient.companion.findMany({
+      where: { plantId },
+    });
+    companionArr.push(foundCompanions);
+  }
+  return companionArr.flat();
 };
 
 export const findAllCompanions = async () => {

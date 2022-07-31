@@ -2,15 +2,13 @@ import { Router } from "express";
 import {
   getSquareById,
   updateSquareById,
-  //   getSquaresByRaisedBedId,
-  getNearbySquares,
+  getCompanionsBySquareId,
 } from "../controllers/square.js";
 
 const router = Router();
 
 router.get("/:squareId", getSquareById);
-// router.get("/raisedbed/:raisedBedId", getSquaresByRaisedBedId);
-router.get("/nearby/:squareId", getNearbySquares);
 router.patch("/", updateSquareById);
+router.get("/companion/:squareId", getCompanionsBySquareId);
 
 export default router;
