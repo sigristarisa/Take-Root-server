@@ -72,7 +72,9 @@ export const findNearbySquareId = (
   maxColumn
 ) => {
   const nearbySquareIdArr = [];
-  const { id, row, column } = square;
+  const id = square.id;
+  const row = square.row + 1;
+  const column = square.column + 1;
   const left = id - 1;
   const right = id + 1;
   const top = id - maxColumn;
@@ -85,25 +87,26 @@ export const findNearbySquareId = (
   } else if (id === lastId) {
     console.log("second");
     nearbySquareIdArr.push(left, top);
-  } else if (row === 0) {
+  } else if (row === 0 && column === maxColumn) {
     console.log("third");
-
-    nearbySquareIdArr.push(left, right, bottom);
-  } else if (column === 0) {
+    nearbySquareIdArr.push(left, bottom);
+  } else if (row === maxRow && column === 0) {
     console.log("fourth");
-
-    nearbySquareIdArr.push(top, right, bottom);
-  } else if (row === maxRow) {
+    nearbySquareIdArr.push(right, top);
+  } else if (row === 0 && column !== maxColumn) {
     console.log("fifth");
-
-    nearbySquareIdArr.push(left, right, top);
-  } else if (column === maxColumn) {
+    nearbySquareIdArr.push(left, right, bottom);
+  } else if (row !== maxRow && column === 0) {
     console.log("sixth");
-
+    nearbySquareIdArr.push(top, right, bottom);
+  } else if (row === maxRow && column !== maxColumn) {
+    console.log("seventh");
+    nearbySquareIdArr.push(left, right, top);
+  } else if (row !== maxRow && column === maxColumn) {
+    console.log("ninth");
     nearbySquareIdArr.push(left, top, bottom);
   } else {
-    console.log("seventh");
-
+    console.log("tenth");
     nearbySquareIdArr.push(left, right, top, bottom);
   }
 
@@ -119,6 +122,7 @@ export const findNearbySquaresPlantId = async (nearbySquareIds) => {
         id: nearbySquareId,
       },
     });
+    console.log("foundSquare", foundSquare);
     nearbySquares.push(foundSquare.plantId);
   }
 

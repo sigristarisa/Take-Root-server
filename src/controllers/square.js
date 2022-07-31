@@ -7,7 +7,10 @@ import {
 
 import { findRaisedBedById } from "../domain/raisedBed.js";
 
-import { findCompanionsByPlantId } from "../domain/plant.js";
+import {
+  findCompanionsByPlantId,
+  findNonCompanionsByPlantId,
+} from "../domain/plant.js";
 
 export const getSquareById = async (req, res) => {
   const squareId = Number(req.params.squareId);
@@ -42,21 +45,15 @@ export const updateSquareById = async (req, res) => {
 export const getCompanionsBySquareId = async (req, res) => {
   const squareId = Number(req.params.squareId);
 
-  console.log("squareId", squareId);
   const foundSquare = await findSquareById(squareId);
-  console.log("foundSquare", foundSquare);
   const raisedBedId = foundSquare.raisedBedId;
+
   const foundRaisedBed = await findRaisedBedById(raisedBedId);
   const firstSquareId = foundRaisedBed.square[0].id;
   const lastSquareId =
     foundRaisedBed.square[foundRaisedBed.square.length - 1].id;
-
   const maxRow = foundRaisedBed.rows;
   const maxColumn = foundRaisedBed.columns;
-
-  console.log("firstSquareId", firstSquareId);
-  console.log("lastSquareId", lastSquareId), console.log("maxrow", maxRow);
-  console.log("maxColumn", maxColumn);
 
   const nearbySquareIds = findNearbySquareId(
     foundSquare,
@@ -69,6 +66,7 @@ export const getCompanionsBySquareId = async (req, res) => {
   const plantIdArr = await findNearbySquaresPlantId(nearbySquareIds);
 
   const foundCompanions = await findCompanionsByPlantId(plantIdArr);
+  const foundNonCompanions = await findNonCompanionsByPlantId(plantIdArr);
 
-  res.json({ companions: foundCompanions });
+  res.json({ companions: foundCompanions, nonCompanions: foundNonCompanions });
 };
