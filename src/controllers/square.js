@@ -58,12 +58,6 @@ export const getCompanionsBySquareId = async (req, res) => {
   console.log("lastSquareId", lastSquareId), console.log("maxrow", maxRow);
   console.log("maxColumn", maxColumn);
 
-  // ----------- HERES THE PROBLEM ------------ //
-  // const nearbyRows = findNearbyRowColumn(foundSquare.row);
-  // console.log("nearbyRows", nearbyRows);
-  // cost nearbyColumns = findNearbyRowColumn(foundSquare.column);
-  // console.log("nearbyColumns", nearbyColumns);
-
   const nearbySquareIds = findNearbySquareId(
     foundSquare,
     firstSquareId,
@@ -72,29 +66,9 @@ export const getCompanionsBySquareId = async (req, res) => {
     maxColumn
   );
 
-  console.log("nearbySquareIds", nearbySquareIds);
+  const plantIdArr = await findNearbySquaresPlantId(nearbySquareIds);
 
-  // const foundNearbySquaresRow = await findNearbySquaresPlantId(
-  //   raisedBedId,
-  //   "row",
-  //   nearbyRows
-  // );
-  // const foundNearbySquaresColumn = await findNearbySquaresPlantId(
-  //   raisedBedId,
-  //   "column",
-  //   nearbyColumns
-  // );
+  const foundCompanions = await findCompanionsByPlantId(plantIdArr);
 
-  // console.log("foundNearbySquareRow", foundNearbySquaresRow);
-  // console.log("roundNearbySquaresColumn", foundNearbySquaresColumn);
-
-  // const plantIdArr = foundNearbySquaresRow.concat(foundNearbySquaresColumn);
-
-  // console.log("plantIdArr", plantIdArr);
-
-  // const foundCompanions = await findCompanionsByPlantId(plantIdArr);
-
-  // console.log("foundCompanions", foundCompanions);
-
-  // res.json({ companions: foundCompanions });
+  res.json({ companions: foundCompanions });
 };

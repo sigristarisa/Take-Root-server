@@ -71,7 +71,6 @@ export const findNearbySquareId = (
   maxRow,
   maxColumn
 ) => {
-  console.log("square", square);
   const nearbySquareIdArr = [];
   const { id, row, column } = square;
   const left = id - 1;
@@ -111,22 +110,15 @@ export const findNearbySquareId = (
   return nearbySquareIdArr;
 };
 
-export const findNearbySquaresPlantId = async (
-  raisedBedId,
-  direction,
-  nearbyArr
-) => {
+export const findNearbySquaresPlantId = async (nearbySquareIds) => {
   const nearbySquares = [];
 
-  for (const nearbySquare of nearbyArr) {
-    console.log("direction", direction);
+  for (const nearbySquareId of nearbySquareIds) {
     const foundSquare = await dbClient.square.findFirst({
       where: {
-        AND: [{ raisedBedId }, { [direction]: nearbySquare }],
+        id: nearbySquareId,
       },
     });
-
-    console.log("what are the nearby squares", foundSquare);
     nearbySquares.push(foundSquare.plantId);
   }
 
