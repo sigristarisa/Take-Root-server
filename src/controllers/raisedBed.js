@@ -27,7 +27,8 @@ export const createRaisedBedAndSquares = async (req, res) => {
 
 export const getRaisedBedById = async (req, res) => {
   const raisedBedId = Number(req.params.raisedBedId);
-
+  console.log("hi");
+  console.log("am I getting this?", raisedBedId);
   try {
     const foundRaisedBed = await findRaisedBedById(raisedBedId);
     if (!foundRaisedBed) {

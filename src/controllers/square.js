@@ -76,6 +76,5 @@ export const deletePlantIdsByRaisedBedId = async (req, res, next) => {
   const raisedBedId = Number(req.params.raisedBedId);
 
   await deleteAllPlantIdsByRaisedBedId(raisedBedId);
-
   next();
 };
