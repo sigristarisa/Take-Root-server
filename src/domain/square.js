@@ -122,7 +122,6 @@ export const findNearbySquaresPlantId = async (nearbySquareIds) => {
         id: nearbySquareId,
       },
     });
-    console.log("foundSquare", foundSquare);
     nearbySquares.push(foundSquare.plantId);
   }
 

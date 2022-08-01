@@ -1,4 +1,8 @@
-import { createRaisedBed, findRaisedBedById } from "../domain/raisedBed.js";
+import {
+  createRaisedBed,
+  findRaisedBedById,
+  deleteAllSquaresById,
+} from "../domain/raisedBed.js";
 import { createSquares } from "../domain/square.js";
 
 export const createRaisedBedAndSquares = async (req, res) => {
@@ -35,4 +39,11 @@ export const getRaisedBedById = async (req, res) => {
     console.error("What happened?: ", error.message);
     res.status(500).json({ error: "ERROR – Something went wrong" });
   }
+};
+
+export const deleteSquaresById = async (req, res) => {
+  const raisedBedId = Number(req.params.raisedBedId);
+  const deletingRaisedBed = await deleteAllSquaresById(raisedBedId);
+
+  res.json({ raisedBed: deletingRaisedBed });
 };

@@ -32,3 +32,19 @@ export const findRaisedBedById = async (raisedBedId) => {
   });
   return foundRaisedBed;
 };
+
+export const deleteAllSquaresById = async (raisedBedId) => {
+  const deletingRaisedBed = await dbClient.raisedBed.update({
+    where: { id: raisedBedId },
+    data: {
+      square: {
+        deleteMany: {},
+      },
+    },
+    include: {
+      square: true,
+    },
+  });
+
+  return deletingRaisedBed;
+};
