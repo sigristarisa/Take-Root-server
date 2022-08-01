@@ -3,6 +3,7 @@ import {
   updateSquare,
   findNearbySquareId,
   findNearbySquaresPlantId,
+  deleteAllPlantIdsByRaisedBedId,
 } from "../domain/square.js";
 
 import { findRaisedBedById } from "../domain/raisedBed.js";
@@ -69,4 +70,12 @@ export const getCompanionsBySquareId = async (req, res) => {
   const foundNonCompanions = await findNonCompanionsByPlantId(plantIdArr);
 
   res.json({ companions: foundCompanions, nonCompanions: foundNonCompanions });
+};
+
+export const deletePlantIdsByRaisedBedId = async (req, res, next) => {
+  const raisedBedId = Number(req.params.raisedBedId);
+
+  await deleteAllPlantIdsByRaisedBedId(raisedBedId);
+
+  next();
 };

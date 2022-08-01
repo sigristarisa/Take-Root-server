@@ -127,3 +127,14 @@ export const findNearbySquaresPlantId = async (nearbySquareIds) => {
 
   return nearbySquares;
 };
+
+export const deleteAllPlantIdsByRaisedBedId = async (raisedBedId) => {
+  const deletingSquares = await dbClient.square.updateMany({
+    where: { raisedBedId },
+    data: {
+      plantId: null,
+    },
+  });
+
+  return deletingSquares;
+};

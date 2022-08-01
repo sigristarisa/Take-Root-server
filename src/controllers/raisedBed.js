@@ -40,10 +40,3 @@ export const getRaisedBedById = async (req, res) => {
     res.status(500).json({ error: "ERROR – Something went wrong" });
   }
 };
-
-export const deleteSquaresById = async (req, res) => {
-  const raisedBedId = Number(req.params.raisedBedId);
-  const deletingRaisedBed = await deleteAllSquaresById(raisedBedId);
-
-  res.json({ raisedBed: deletingRaisedBed });
-};
