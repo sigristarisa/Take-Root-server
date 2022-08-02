@@ -41,3 +41,11 @@ export const changeRaisedBedNameById = async (raisedBedId, name) => {
 
   return updatedRaisedBed;
 };
+
+export const findAllRaisedBedByUserId = async (userId) => {
+  const foundRaisedBed = await dbClient.raisedBed.findMany({
+    where: { userId },
+  });
+
+  return foundRaisedBed;
+};

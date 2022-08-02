@@ -2,6 +2,7 @@ import {
   createRaisedBed,
   findRaisedBedById,
   changeRaisedBedNameById,
+  findAllRaisedBedByUserId,
 } from "../domain/raisedBed.js";
 import { createSquares } from "../domain/square.js";
 
@@ -49,4 +50,12 @@ export const updateRaisedBedNameById = async (req, res) => {
   const updatedRaisedBed = await changeRaisedBedNameById(raisedBedId, name);
 
   res.json({ raisedBed: updatedRaisedBed });
+};
+
+export const getAllRaisedBedByUserId = async (req, res) => {
+  const userId = Number(req.params.userId);
+
+  const foundRaisedBed = await findAllRaisedBedByUserId(userId);
+
+  res.json({ raisedBed: foundRaisedBed });
 };
