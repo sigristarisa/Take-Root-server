@@ -3,8 +3,12 @@ import {
   findRaisedBedById,
   changeRaisedBedNameById,
   findAllRaisedBedByUserId,
+  removeRaisedBedById,
 } from "../domain/raisedBed.js";
-import { createSquares } from "../domain/square.js";
+import {
+  createSquares,
+  deleteAllSquaresByRaisedBedId,
+} from "../domain/square.js";
 
 export const createRaisedBedAndSquares = async (req, res) => {
   const { userId, row, column } = req.body;
@@ -58,4 +62,13 @@ export const getAllRaisedBedByUserId = async (req, res) => {
   const foundRaisedBed = await findAllRaisedBedByUserId(userId);
 
   res.json({ raisedBed: foundRaisedBed });
+};
+
+export const deleteRaisedBedById = async (req, res) => {
+  const raisedBedId = Number(req.params.raisedBedId);
+
+  const deletingSquares = await deleteAllSquaresByRaisedBedId(raisedBedId);
+  const deletingRaisedBed = await removeRaisedBedById(raisedBedId);
+
+  res.json({ deleted: deletingRaisedBed });
 };

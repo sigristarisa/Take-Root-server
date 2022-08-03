@@ -45,7 +45,23 @@ export const changeRaisedBedNameById = async (raisedBedId, name) => {
 export const findAllRaisedBedByUserId = async (userId) => {
   const foundRaisedBed = await dbClient.raisedBed.findMany({
     where: { userId },
+    include: {
+      square: {
+        include: { plant: true },
+        orderBy: {
+          id: "asc",
+        },
+      },
+    },
   });
 
   return foundRaisedBed;
+};
+
+export const removeRaisedBedById = async (raisedBedId) => {
+  const deletingRaisedBed = await dbClient.raisedBed.deleteMany({
+    where: { id: raisedBedId },
+  });
+
+  return deletingRaisedBed;
 };

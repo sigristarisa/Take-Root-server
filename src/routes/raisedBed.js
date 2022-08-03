@@ -5,6 +5,7 @@ import {
   getRaisedBedById,
   updateRaisedBedNameById,
   getAllRaisedBedByUserId,
+  deleteRaisedBedById,
 } from "../controllers/raisedBed.js";
 
 const router = Router();
@@ -14,5 +15,6 @@ router.get("/user/:userId", getAllRaisedBedByUserId);
 router.post("/", createRaisedBedAndSquares);
 router.patch("/:raisedBedId", deletePlantIdsByRaisedBedId, getRaisedBedById);
 router.patch("/name/:raisedBedId", updateRaisedBedNameById);
+router.delete("/:raisedBedId", deleteRaisedBedById);
 
 export default router;

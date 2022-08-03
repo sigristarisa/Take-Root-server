@@ -138,3 +138,11 @@ export const deleteAllPlantIdsByRaisedBedId = async (raisedBedId) => {
 
   return deletingSquares;
 };
+
+export const deleteAllSquaresByRaisedBedId = async (raisedBedId) => {
+  const deletingSquares = await dbClient.square.deleteMany({
+    where: { raisedBedId },
+  });
+
+  return deletingSquares;
+};
