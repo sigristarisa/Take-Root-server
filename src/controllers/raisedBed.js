@@ -12,6 +12,7 @@ import {
 
 export const createRaisedBedAndSquares = async (req, res) => {
   const { userId, row, column } = req.body;
+
   try {
     const newRaisedBed = await createRaisedBed(userId, row, column);
     if (!newRaisedBed) {
@@ -32,8 +33,7 @@ export const createRaisedBedAndSquares = async (req, res) => {
 
 export const getRaisedBedById = async (req, res) => {
   const raisedBedId = Number(req.params.raisedBedId);
-  console.log("hi");
-  console.log("am I getting this?", raisedBedId);
+
   try {
     const foundRaisedBed = await findRaisedBedById(raisedBedId);
     if (!foundRaisedBed) {
@@ -51,24 +51,51 @@ export const updateRaisedBedNameById = async (req, res) => {
   const raisedBedId = Number(req.params.raisedBedId);
   const { name } = req.body;
 
-  const updatedRaisedBed = await changeRaisedBedNameById(raisedBedId, name);
+  try {
+    const updatedRaisedBed = await changeRaisedBedNameById(raisedBedId, name);
 
-  res.json({ raisedBed: updatedRaisedBed });
+    if (!updatedRaisedBed) {
+      res.status(400).json({ error: "Could not update raised bed name" });
+    }
+
+    res.json({ raisedBed: updatedRaisedBed });
+  } catch (error) {
+    console.error("What happened?: ", error.message);
+    res.status(500).json({ error: "ERROR – Something went wrong" });
+  }
 };
 
 export const getAllRaisedBedByUserId = async (req, res) => {
   const userId = Number(req.params.userId);
 
-  const foundRaisedBed = await findAllRaisedBedByUserId(userId);
+  try {
+    const foundRaisedBed = await findAllRaisedBedByUserId(userId);
 
-  res.json({ raisedBed: foundRaisedBed });
+    if (!foundRaisedBed) {
+      res.status(400).json({ error: "Could not find raised bed by user id" });
+    }
+
+    res.json({ raisedBed: foundRaisedBed });
+  } catch (error) {
+    console.error("What happened?: ", error.message);
+    res.status(500).json({ error: "ERROR – Something went wrong" });
+  }
 };
 
 export const deleteRaisedBedById = async (req, res) => {
   const raisedBedId = Number(req.params.raisedBedId);
 
-  const deletingSquares = await deleteAllSquaresByRaisedBedId(raisedBedId);
-  const deletingRaisedBed = await removeRaisedBedById(raisedBedId);
+  try {
+    await deleteAllSquaresByRaisedBedId(raisedBedId);
+    const deletingRaisedBed = await removeRaisedBedById(raisedBedId);
 
-  res.json({ deleted: deletingRaisedBed });
+    if (!deletingRaisedBed) {
+      res.status(400).json({ error: "Could not delete raised bed" });
+    }
+
+    res.json({ deleted: deletingRaisedBed });
+  } catch (error) {
+    console.error("What happened?: ", error.message);
+    res.status(500).json({ error: "ERROR – Something went wrong" });
+  }
 };

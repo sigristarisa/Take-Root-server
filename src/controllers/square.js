@@ -46,30 +46,51 @@ export const updateSquareById = async (req, res) => {
 export const getCompanionsBySquareId = async (req, res) => {
   const squareId = Number(req.params.squareId);
 
-  const foundSquare = await findSquareById(squareId);
-  const raisedBedId = foundSquare.raisedBedId;
+  try {
+    const foundSquare = await findSquareById(squareId);
+    if (!foundSquare) {
+      res.status(400).json({ error: "Unable to find square by id" });
+    }
 
-  const foundRaisedBed = await findRaisedBedById(raisedBedId);
-  const firstSquareId = foundRaisedBed.square[0].id;
-  const lastSquareId =
-    foundRaisedBed.square[foundRaisedBed.square.length - 1].id;
-  const maxRow = foundRaisedBed.rows;
-  const maxColumn = foundRaisedBed.columns;
+    const raisedBedId = foundSquare.raisedBedId;
+    const foundRaisedBed = await findRaisedBedById(raisedBedId);
 
-  const nearbySquareIds = findNearbySquareId(
-    foundSquare,
-    firstSquareId,
-    lastSquareId,
-    maxRow,
-    maxColumn
-  );
+    if (!foundRaisedBed) {
+      res.status(400).json({ error: "Unable to find raised bed by id" });
+    }
+    const firstSquareId = foundRaisedBed.square[0].id;
+    const lastSquareId =
+      foundRaisedBed.square[foundRaisedBed.square.length - 1].id;
+    const maxRow = foundRaisedBed.rows;
+    const maxColumn = foundRaisedBed.columns;
 
-  const plantIdArr = await findNearbySquaresPlantId(nearbySquareIds);
+    const nearbySquareIds = findNearbySquareId(
+      foundSquare,
+      firstSquareId,
+      lastSquareId,
+      maxRow,
+      maxColumn
+    );
 
-  const foundCompanions = await findCompanionsByPlantId(plantIdArr);
-  const foundNonCompanions = await findNonCompanionsByPlantId(plantIdArr);
+    const plantIdArr = await findNearbySquaresPlantId(nearbySquareIds);
 
-  res.json({ companions: foundCompanions, nonCompanions: foundNonCompanions });
+    if (!plantIdArr) {
+      res
+        .status(400)
+        .json({ error: "Unable to find plants of nearby squares" });
+    }
+
+    const foundCompanions = await findCompanionsByPlantId(plantIdArr);
+    const foundNonCompanions = await findNonCompanionsByPlantId(plantIdArr);
+
+    res.json({
+      companions: foundCompanions,
+      nonCompanions: foundNonCompanions,
+    });
+  } catch (error) {
+    console.error("What happened?: ", error.message);
+    res.status(500).json({ error: "ERROR – Something went wrong" });
+  }
 };
 
 export const deletePlantIdsByRaisedBedId = async (req, res, next) => {
