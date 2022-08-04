@@ -69,8 +69,13 @@ export const removeRaisedBedById = async (raisedBedId) => {
   return deletingRaisedBed;
 };
 
-export const findEntireRaisedBeds = async () => {
-  const entireRaisedBeds = await dbClient.raisedBed.findMany({
+export const findOtherRaisedBeds = async (userId) => {
+  const otherRaisedBeds = await dbClient.raisedBed.findMany({
+    where: {
+      userId: {
+        not: userId,
+      },
+    },
     include: {
       square: {
         include: { plant: true },
@@ -78,5 +83,5 @@ export const findEntireRaisedBeds = async () => {
     },
   });
 
-  return entireRaisedBeds;
+  return otherRaisedBeds;
 };
