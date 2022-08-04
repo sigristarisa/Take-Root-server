@@ -77,6 +77,7 @@ export const findOtherRaisedBeds = async (userId) => {
       },
     },
     include: {
+      user: true,
       square: {
         include: { plant: true },
       },

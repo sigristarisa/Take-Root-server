@@ -79,34 +79,24 @@ export const findNearbySquareId = (
   const right = id + 1;
   const top = id - maxColumn;
   const bottom = id + maxColumn;
-  console.log({ left, right, top, bottom });
 
   if (id === firstId) {
-    console.log("first");
     nearbySquareIdArr.push(right, bottom);
   } else if (id === lastId) {
-    console.log("second");
     nearbySquareIdArr.push(left, top);
   } else if (row === 1 && column === maxColumn) {
-    console.log("third");
     nearbySquareIdArr.push(left, bottom);
   } else if (row === maxRow && column === 1) {
-    console.log("fourth");
     nearbySquareIdArr.push(right, top);
   } else if (row === 1 && column !== maxColumn) {
-    console.log("fifth");
     nearbySquareIdArr.push(left, right, bottom);
   } else if (row !== maxRow && column === 1) {
-    console.log("sixth");
     nearbySquareIdArr.push(top, right, bottom);
   } else if (row === maxRow && column !== maxColumn) {
-    console.log("seventh");
     nearbySquareIdArr.push(left, right, top);
   } else if (row !== maxRow && column === maxColumn) {
-    console.log("ninth");
     nearbySquareIdArr.push(left, top, bottom);
   } else {
-    console.log("tenth");
     nearbySquareIdArr.push(left, right, top, bottom);
   }
 
