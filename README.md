@@ -26,7 +26,7 @@ In order to make gardening not only effective and sufficient BUT ALSO easy and s
 4. Once clicking a square, the app will check what plants are already placed in the nearby squares (top, bottom, left, right), and render which plants are companions (or not) in the plant library
 5. Users can name the planned raised bed and save
 6. Users can view all the planned raised beds they've created, as well as delete
-7. As the part of the community, users can browse other users' created raised beds as an inspiration
+7. As the part of the "Take Root" community, users can browse other users' created raised beds as an inspiration
 
 ### What Language is Used?
 **Frontend**
