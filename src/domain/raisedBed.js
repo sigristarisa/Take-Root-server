@@ -53,6 +53,9 @@ export const findAllRaisedBedByUserId = async (userId) => {
         },
       },
     },
+    orderBy: {
+      id: "desc",
+    },
   });
 
   return foundRaisedBed;
@@ -64,4 +67,16 @@ export const removeRaisedBedById = async (raisedBedId) => {
   });
 
   return deletingRaisedBed;
+};
+
+export const findEntireRaisedBeds = async () => {
+  const entireRaisedBeds = await dbClient.raisedBed.findMany({
+    include: {
+      square: {
+        include: { plant: true },
+      },
+    },
+  });
+
+  return entireRaisedBeds;
 };

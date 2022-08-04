@@ -4,6 +4,7 @@ import {
   changeRaisedBedNameById,
   findAllRaisedBedByUserId,
   removeRaisedBedById,
+  findEntireRaisedBeds,
 } from "../domain/raisedBed.js";
 import {
   createSquares,
@@ -94,6 +95,20 @@ export const deleteRaisedBedById = async (req, res) => {
     }
 
     res.json({ deleted: deletingRaisedBed });
+  } catch (error) {
+    console.error("What happened?: ", error.message);
+    res.status(500).json({ error: "ERROR – Something went wrong" });
+  }
+};
+
+export const getEntireRaisedBeds = async (req, res) => {
+  try {
+    const entireRaisedBeds = await findEntireRaisedBeds();
+
+    if (!entireRaisedBeds) {
+      res.status(400).json({ error: "Could not get raised beds" });
+    }
+    res.json({ raisedBeds: entireRaisedBeds });
   } catch (error) {
     console.error("What happened?: ", error.message);
     res.status(500).json({ error: "ERROR – Something went wrong" });

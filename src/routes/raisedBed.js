@@ -6,10 +6,12 @@ import {
   updateRaisedBedNameById,
   getAllRaisedBedByUserId,
   deleteRaisedBedById,
+  getEntireRaisedBeds,
 } from "../controllers/raisedBed.js";
 
 const router = Router();
 
+router.get("/", getEntireRaisedBeds);
 router.get("/:raisedBedId", getRaisedBedById);
 router.get("/user/:userId", getAllRaisedBedByUserId);
 router.post("/", createRaisedBedAndSquares);
