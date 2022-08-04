@@ -1,5 +1,5 @@
-# 🍅🥬🍆 Take Root 🌽🫐🥕
-## The first online garden planner, combining the square-foot method and the companion method
+<h1 align="center">🍅🥬🍆 Take Root 🌽🫐🥕</h1>
+<h2 align="center">The first online garden planner<br/>combining the square-foot method and the companion method</h2>
 
 ### Backstory
 It’s been buzzwords in the gardening world: the square-foot garden & companion planting. Effective and sufficient, I gave it a go to try these methods out as a gardening newbie, without realizing how simple methods could lead to a complex planning.
