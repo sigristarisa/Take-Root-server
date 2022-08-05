@@ -31,7 +31,9 @@ In order to make gardening not only effective and sufficient BUT ALSO easy and s
 ### What Language is Used?
 **Frontend**
 - React.js
-- CSS
+- CSS<br/>
+
+=> *frontend repository is found [here](https://github.com/sigristarisa/Take-Root-client)*
 
 **Backend**
 - Express.js
