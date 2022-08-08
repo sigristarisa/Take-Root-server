@@ -26,3 +26,11 @@ const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`\n Server is running on http://localhost:${port}\n`);
 });
+
+const path = require("path");
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, "Take-Root-client/build")));
+// Anything that doesn't match the above, send back index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/Take-Root-client/build/index.html"));
+});
