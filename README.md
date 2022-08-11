@@ -2,8 +2,8 @@
 <h2 align="center">The first online garden planner<br/>combining the square-foot method and the companion method</h2>
 
 ### Backstory
-It’s been buzzwords in the gardening world: the square-foot garden & companion planting. Effective and sufficient, I gave it a go to try these methods out as a gardening newbie, without realizing how simple methods could lead to a complex planning.
-Can't plant tomatos next to corns, but compliments carrots, which can harm potatos...? Mint is overpowering so you can't plant multiple seedlings? What would happen if I plant parsley next to it?
+It’s been a buzzword in the gardening world: the square-foot garden & companion planting. Effective and sufficient, I gave it a go to try these methods out as a gardening newbie, without realizing how simple methods could lead to complex planning.
+Can't plant tomatoes next to corns, but compliments carrots, which can harm potatoes...? Mint is overpowering so you can't plant multiple seedlings? What would happen if I plant parsley next to it?
 
 That is: gardeners have knowledge, lists, memos and techniques, but not the practical tool to plan their perfect garden!
 
