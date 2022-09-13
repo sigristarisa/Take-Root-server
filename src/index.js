@@ -13,7 +13,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("assets"));
 app.use(express.static("plant-image"));
-app.use(express.static("plant-image"));
 app.use(express.static("default-user-image"));
 
 app.use("/assets", express.static("assets"));
