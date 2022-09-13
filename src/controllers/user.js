@@ -1,7 +1,7 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { JWT_SECRET, JWT_EXPIRY } from "../helpers/config.js";
 import { findUser, createUser } from "../domain/user.js";
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 export const signUp = async (req, res) => {
   const { userName, email, password, confirmPassword, userImage } = req.body;
