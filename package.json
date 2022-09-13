@@ -1,6 +1,7 @@
 {
   "name": "take-root",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "prisma": {
     "seed": "node prisma/seed/seed.js"
