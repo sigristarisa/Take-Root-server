@@ -1,4 +1,4 @@
-const dbClient = require("../helpers/dbClient");
+import dbClient from "../helpers/dbClient.js";
 
 const createRowColumn = (num, direction) => {
   const rowColumnArr = [];
@@ -20,7 +20,7 @@ const createSquareArr = (rows, columns) => {
   return squareArr;
 };
 
-const createSquares = async (raisedBedId, row, column) => {
+export const createSquares = async (raisedBedId, row, column) => {
   const squareArr = createSquareArr(row, column);
   const newSquareArr = [];
 
@@ -41,7 +41,7 @@ const createSquares = async (raisedBedId, row, column) => {
   return newSquareArr;
 };
 
-const updateSquare = async (squareId, plantId) => {
+export const updateSquare = async (squareId, plantId) => {
   const updatedSquare = await dbClient.square.update({
     where: { id: squareId },
     data: {
@@ -56,7 +56,7 @@ const updateSquare = async (squareId, plantId) => {
   return updatedSquare;
 };
 
-const findSquareById = async (squareId) => {
+export const findSquareById = async (squareId) => {
   const foundSquare = await dbClient.square.findFirst({
     where: { id: squareId },
     include: { plant: true },
@@ -64,7 +64,13 @@ const findSquareById = async (squareId) => {
   return foundSquare;
 };
 
-const findNearbySquareId = (square, firstId, lastId, maxRow, maxColumn) => {
+export const findNearbySquareId = (
+  square,
+  firstId,
+  lastId,
+  maxRow,
+  maxColumn
+) => {
   const nearbySquareIdArr = [];
   const id = square.id;
   const row = square.row + 1;
@@ -97,7 +103,7 @@ const findNearbySquareId = (square, firstId, lastId, maxRow, maxColumn) => {
   return nearbySquareIdArr;
 };
 
-const findNearbySquaresPlantId = async (nearbySquareIds) => {
+export const findNearbySquaresPlantId = async (nearbySquareIds) => {
   const nearbySquares = [];
 
   for (const nearbySquareId of nearbySquareIds) {
@@ -112,7 +118,7 @@ const findNearbySquaresPlantId = async (nearbySquareIds) => {
   return nearbySquares;
 };
 
-const deleteAllPlantIdsByRaisedBedId = async (raisedBedId) => {
+export const deleteAllPlantIdsByRaisedBedId = async (raisedBedId) => {
   const deletingSquares = await dbClient.square.updateMany({
     where: { raisedBedId },
     data: {
@@ -123,20 +129,10 @@ const deleteAllPlantIdsByRaisedBedId = async (raisedBedId) => {
   return deletingSquares;
 };
 
-const deleteAllSquaresByRaisedBedId = async (raisedBedId) => {
+export const deleteAllSquaresByRaisedBedId = async (raisedBedId) => {
   const deletingSquares = await dbClient.square.deleteMany({
     where: { raisedBedId },
   });
 
   return deletingSquares;
-};
-
-module.exports = {
-  createSquares,
-  updateSquare,
-  findSquareById,
-  findNearbySquareId,
-  findNearbySquaresPlantId,
-  deleteAllPlantIdsByRaisedBedId,
-  deleteAllSquaresByRaisedBedId,
 };

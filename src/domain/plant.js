@@ -1,11 +1,11 @@
-const dbClient = require("../helpers/dbClient");
+import dbClient from "../helpers/dbClient.js";
 
-const findAllPlants = async () => {
+export const findAllPlants = async () => {
   const plants = await dbClient.plant.findMany();
   return plants;
 };
 
-const findCompanionsByPlantId = async (plantIdArr) => {
+export const findCompanionsByPlantId = async (plantIdArr) => {
   const companionArr = [];
 
   for (const plantId of plantIdArr) {
@@ -18,7 +18,7 @@ const findCompanionsByPlantId = async (plantIdArr) => {
   return companionArr.flat();
 };
 
-const findNonCompanionsByPlantId = async (plantIdArr) => {
+export const findNonCompanionsByPlantId = async (plantIdArr) => {
   const nonCompanionArr = [];
 
   for (const plantId of plantIdArr) {
@@ -31,14 +31,7 @@ const findNonCompanionsByPlantId = async (plantIdArr) => {
   return nonCompanionArr.flat();
 };
 
-const findAllCompanions = async () => {
+export const findAllCompanions = async () => {
   const companions = await dbClient.companion.findMany();
   return companions;
-};
-
-module.exports = {
-  findAllPlants,
-  findCompanionsByPlantId,
-  findNonCompanionsByPlantId,
-  findAllCompanions,
 };

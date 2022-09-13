@@ -1,18 +1,17 @@
-const {
+import {
   createRaisedBed,
   findRaisedBedById,
   changeRaisedBedNameById,
   findAllRaisedBedByUserId,
   removeRaisedBedById,
   findOtherRaisedBeds,
-} = require("../domain/raisedBed.js");
-
-const {
+} from "../domain/raisedBed.js";
+import {
   createSquares,
   deleteAllSquaresByRaisedBedId,
-} = require("../domain/square.js");
+} from "../domain/square.js";
 
-const createRaisedBedAndSquares = async (req, res) => {
+export const createRaisedBedAndSquares = async (req, res) => {
   const { userId, row, column } = req.body;
 
   try {
@@ -33,7 +32,7 @@ const createRaisedBedAndSquares = async (req, res) => {
   }
 };
 
-const getRaisedBedById = async (req, res) => {
+export const getRaisedBedById = async (req, res) => {
   const raisedBedId = Number(req.params.raisedBedId);
 
   try {
@@ -49,7 +48,7 @@ const getRaisedBedById = async (req, res) => {
   }
 };
 
-const updateRaisedBedNameById = async (req, res) => {
+export const updateRaisedBedNameById = async (req, res) => {
   const raisedBedId = Number(req.params.raisedBedId);
   const { name } = req.body;
 
@@ -67,7 +66,7 @@ const updateRaisedBedNameById = async (req, res) => {
   }
 };
 
-const getAllRaisedBedByUserId = async (req, res) => {
+export const getAllRaisedBedByUserId = async (req, res) => {
   const userId = Number(req.params.userId);
 
   try {
@@ -84,7 +83,7 @@ const getAllRaisedBedByUserId = async (req, res) => {
   }
 };
 
-const deleteRaisedBedById = async (req, res) => {
+export const deleteRaisedBedById = async (req, res) => {
   const raisedBedId = Number(req.params.raisedBedId);
 
   try {
@@ -102,7 +101,7 @@ const deleteRaisedBedById = async (req, res) => {
   }
 };
 
-const getOtherRaisedBeds = async (req, res) => {
+export const getOtherRaisedBeds = async (req, res) => {
   const userId = Number(req.params.userId);
   try {
     const otherRaisedBeds = await findOtherRaisedBeds(userId);
@@ -115,13 +114,4 @@ const getOtherRaisedBeds = async (req, res) => {
     console.error("What happened?: ", error.message);
     res.status(500).json({ error: "ERROR – Something went wrong" });
   }
-};
-
-module.exports = {
-  createRaisedBedAndSquares,
-  getRaisedBedById,
-  updateRaisedBedNameById,
-  getAllRaisedBedByUserId,
-  deleteRaisedBedById,
-  getOtherRaisedBeds,
 };

@@ -1,6 +1,6 @@
-const { findAllPlants, findAllCompanions } = require("../domain/plant");
+import { findAllPlants, findAllCompanions } from "../domain/plant.js";
 
-const getAllPlants = async (req, res) => {
+export const getAllPlants = async (req, res) => {
   try {
     const plants = await findAllPlants();
     res.json({ plants });
@@ -10,7 +10,7 @@ const getAllPlants = async (req, res) => {
   }
 };
 
-const getAllCompanions = async (req, res) => {
+export const getAllCompanions = async (req, res) => {
   try {
     const companions = await findAllCompanions();
     res.json({ companions });
@@ -18,9 +18,4 @@ const getAllCompanions = async (req, res) => {
     console.error("What happened?: ", error.message);
     res.status(500).json({ error: "ERROR – Something went wrong" });
   }
-};
-
-module.exports = {
-  getAllPlants,
-  getAllCompanions,
 };

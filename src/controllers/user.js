@@ -1,9 +1,9 @@
-const { JWT_SECRET, JWT_EXPIRY } = require("../helpers/config.js");
-const { findUser, createUser } = require("../domain/user.js");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { JWT_SECRET, JWT_EXPIRY } from "../helpers/config.js";
+import { findUser, createUser } from "../domain/user.js";
 
-const signUp = async (req, res) => {
+export const signUp = async (req, res) => {
   const { userName, email, password, confirmPassword, userImage } = req.body;
 
   try {
@@ -34,7 +34,7 @@ const signUp = async (req, res) => {
   }
 };
 
-const logIn = async (req, res) => {
+export const logIn = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -62,7 +62,7 @@ const logIn = async (req, res) => {
   }
 };
 
-const verifyUser = async (req, res) => {
+export const verifyUser = async (req, res) => {
   const [, token] = req.headers.authorization.split(" ");
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -72,10 +72,4 @@ const verifyUser = async (req, res) => {
   } catch (e) {
     res.status(401).json({ error: "Token not provided - User not allowed" });
   }
-};
-
-module.exports = {
-  signUp,
-  logIn,
-  verifyUser,
 };

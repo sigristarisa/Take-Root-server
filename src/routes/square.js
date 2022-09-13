@@ -1,14 +1,15 @@
-const express = require("express");
-const {
+import { Router } from "express";
+import {
   getSquareById,
   updateSquareById,
   getCompanionsBySquareId,
-} = require("../controllers/square.js");
-const { getRaisedBedById } = require("../controllers/raisedBed.js");
+} from "../controllers/square.js";
 
-const router = express.Router();
+import { getRaisedBedById } from "../controllers/raisedBed.js";
+const router = Router();
+
 router.get("/:squareId", getSquareById);
 router.patch("/", updateSquareById);
 router.get("/companion/:squareId", getCompanionsBySquareId, getRaisedBedById);
 
-module.exports = { squareRouter: router };
+export default router;

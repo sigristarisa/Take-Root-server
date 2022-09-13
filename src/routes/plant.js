@@ -1,10 +1,8 @@
-const express = require("express");
-const { getAllPlants } = require("../controllers/plant.js");
+import { Router } from "express";
+import { getAllPlants } from "../controllers/plant.js";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/", getAllPlants);
 
-module.exports = {
-  plantRouter: router,
-};
+export default router;

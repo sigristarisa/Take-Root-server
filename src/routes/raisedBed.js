@@ -1,15 +1,15 @@
-const express = require("express");
-const { deletePlantIdsByRaisedBedId } = require("../controllers/square.js");
-const {
+import { Router } from "express";
+import { deletePlantIdsByRaisedBedId } from "../controllers/square.js";
+import {
   createRaisedBedAndSquares,
   getRaisedBedById,
   updateRaisedBedNameById,
   getAllRaisedBedByUserId,
   deleteRaisedBedById,
   getOtherRaisedBeds,
-} = require("../controllers/raisedBed.js");
+} from "../controllers/raisedBed.js";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/inspiration/:userId", getOtherRaisedBeds);
 router.get("/:raisedBedId", getRaisedBedById);
@@ -19,4 +19,4 @@ router.patch("/:raisedBedId", deletePlantIdsByRaisedBedId, getRaisedBedById);
 router.patch("/name/:raisedBedId", updateRaisedBedNameById);
 router.delete("/:raisedBedId", deleteRaisedBedById);
 
-module.exports = { raisedBedRouter: router };
+export default router;

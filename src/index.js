@@ -1,9 +1,10 @@
-const express = require("express");
-const cors = require("cors");
-const { userRouter } = require("./routes/user.js");
-const { raisedBedRouter } = require("./routes/raisedBed.js");
-const { squareRouter } = require("./routes/square.js");
-const { plantRouter } = require("./routes/plant.js");
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import userRouter from "./routes/user.js";
+import raisedBedRouter from "./routes/raisedBed.js";
+import squareRouter from "./routes/square.js";
+import plantRouter from "./routes/plant.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("assets"));
+app.use(express.static("plant-image"));
 app.use(express.static("plant-image"));
 app.use(express.static("default-user-image"));
 

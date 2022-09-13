@@ -1,6 +1,6 @@
-const dbClient = require("../helpers/dbClient");
+import dbClient from "../helpers/dbClient.js";
 
-const createRaisedBed = async (userId, row, column) => {
+export const createRaisedBed = async (userId, row, column) => {
   const newRaisedBed = await dbClient.raisedBed.create({
     data: {
       rows: Number(row),
@@ -18,7 +18,7 @@ const createRaisedBed = async (userId, row, column) => {
   return newRaisedBed;
 };
 
-const findRaisedBedById = async (raisedBedId) => {
+export const findRaisedBedById = async (raisedBedId) => {
   const foundRaisedBed = await dbClient.raisedBed.findFirst({
     where: { id: raisedBedId },
     include: {
@@ -33,7 +33,7 @@ const findRaisedBedById = async (raisedBedId) => {
   return foundRaisedBed;
 };
 
-const changeRaisedBedNameById = async (raisedBedId, name) => {
+export const changeRaisedBedNameById = async (raisedBedId, name) => {
   const updatedRaisedBed = await dbClient.raisedBed.update({
     where: { id: raisedBedId },
     data: { name },
@@ -42,7 +42,7 @@ const changeRaisedBedNameById = async (raisedBedId, name) => {
   return updatedRaisedBed;
 };
 
-const findAllRaisedBedByUserId = async (userId) => {
+export const findAllRaisedBedByUserId = async (userId) => {
   const foundRaisedBed = await dbClient.raisedBed.findMany({
     where: { userId },
     include: {
@@ -61,7 +61,7 @@ const findAllRaisedBedByUserId = async (userId) => {
   return foundRaisedBed;
 };
 
-const removeRaisedBedById = async (raisedBedId) => {
+export const removeRaisedBedById = async (raisedBedId) => {
   const deletingRaisedBed = await dbClient.raisedBed.deleteMany({
     where: { id: raisedBedId },
   });
@@ -69,7 +69,7 @@ const removeRaisedBedById = async (raisedBedId) => {
   return deletingRaisedBed;
 };
 
-const findOtherRaisedBeds = async (userId) => {
+export const findOtherRaisedBeds = async (userId) => {
   const otherRaisedBeds = await dbClient.raisedBed.findMany({
     where: {
       userId: {
@@ -85,13 +85,4 @@ const findOtherRaisedBeds = async (userId) => {
   });
 
   return otherRaisedBeds;
-};
-
-module.exports = {
-  createRaisedBed,
-  findRaisedBedById,
-  changeRaisedBedNameById,
-  findAllRaisedBedByUserId,
-  removeRaisedBedById,
-  findOtherRaisedBeds,
 };
