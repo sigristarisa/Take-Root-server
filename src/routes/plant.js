@@ -1,7 +1,6 @@
-import { Router } from "express";
 import { getAllPlants } from "../controllers/plant.js";
-
-const router = Router();
+const express = require("express");
+const router = express.Router();
 
 router.get("/", getAllPlants);
 
