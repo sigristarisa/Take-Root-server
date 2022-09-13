@@ -1,4 +1,4 @@
-import { Router } from "express";
+const express = require("express");
 import { deletePlantIdsByRaisedBedId } from "../controllers/square.js";
 import {
   createRaisedBedAndSquares,
@@ -9,7 +9,7 @@ import {
   getOtherRaisedBeds,
 } from "../controllers/raisedBed.js";
 
-const router = Router();
+const router = express.Router();
 
 router.get("/inspiration/:userId", getOtherRaisedBeds);
 router.get("/:raisedBedId", getRaisedBedById);
