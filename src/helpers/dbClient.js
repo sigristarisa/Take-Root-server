@@ -1,4 +1,4 @@
-import prisma from "@prisma/client";
-const dbClient = new prisma.PrismaClient();
+const { PrismaClient } = require("@prisma/client");
+const dbClient = new PrismaClient();
 
 export default dbClient;
