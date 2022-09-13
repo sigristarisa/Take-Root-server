@@ -1,5 +1,5 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 import { JWT_SECRET, JWT_EXPIRY } from "../helpers/config.js";
 import { findUser, createUser } from "../domain/user.js";
 
