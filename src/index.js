@@ -1,6 +1,6 @@
 // import "dotenv/config";
 const express = require("express");
-import cors from "cors";
+const cors = require("cors");
 import userRouter from "./routes/user.js";
 import raisedBedRouter from "./routes/raisedBed.js";
 import squareRouter from "./routes/square.js";
