@@ -1,7 +1,7 @@
-import rawPlants from "./rawPlants.js";
-import rawCompanions from "./rawCompanions.js";
-import rawNonCompanions from "./rawNonCompanions.js";
-import dbClient from "../../src/helpers/dbClient.js";
+const rawPlants = require("./rawPlants");
+const rawCompanions = require("./rawCompanions");
+const rawNonCompanions = require("./rawNonCompanions");
+const dbClient = require("../../src/helpers/dbClient");
 
 const seed = async () => {
   await createPlants();

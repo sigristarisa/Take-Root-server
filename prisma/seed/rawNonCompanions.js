@@ -35,4 +35,4 @@ const rawNonCompanions = [
   { plantId: 36, nonCompanionId: 31 },
 ];
 
-export default rawNonCompanions;
+exports.rawNonCompanions = rawNonCompanions;

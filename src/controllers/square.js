@@ -1,19 +1,19 @@
-import {
+const {
   findSquareById,
   updateSquare,
   findNearbySquareId,
   findNearbySquaresPlantId,
   deleteAllPlantIdsByRaisedBedId,
-} from "../domain/square.js";
+} = require("../domain/square.js");
 
-import { findRaisedBedById } from "../domain/raisedBed.js";
+const { findRaisedBedById } = require("../domain/raisedBed.js");
 
-import {
+const {
   findCompanionsByPlantId,
   findNonCompanionsByPlantId,
-} from "../domain/plant.js";
+} = require("../domain/plant.js");
 
-export const getSquareById = async (req, res) => {
+const getSquareById = async (req, res) => {
   const squareId = Number(req.params.squareId);
 
   try {
@@ -28,7 +28,7 @@ export const getSquareById = async (req, res) => {
   }
 };
 
-export const updateSquareById = async (req, res) => {
+const updateSquareById = async (req, res) => {
   const { squareId, plantId } = req.body;
   try {
     const updatedSquare = await updateSquare(squareId, plantId);
@@ -43,7 +43,7 @@ export const updateSquareById = async (req, res) => {
   }
 };
 
-export const getCompanionsBySquareId = async (req, res) => {
+const getCompanionsBySquareId = async (req, res) => {
   const squareId = Number(req.params.squareId);
 
   try {
@@ -93,9 +93,16 @@ export const getCompanionsBySquareId = async (req, res) => {
   }
 };
 
-export const deletePlantIdsByRaisedBedId = async (req, res, next) => {
+const deletePlantIdsByRaisedBedId = async (req, res, next) => {
   const raisedBedId = Number(req.params.raisedBedId);
 
   await deleteAllPlantIdsByRaisedBedId(raisedBedId);
   next();
+};
+
+module.exports = {
+  getSquareById,
+  updateSquareById,
+  getCompanionsBySquareId,
+  deletePlantIdsByRaisedBedId,
 };

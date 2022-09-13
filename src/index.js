@@ -1,10 +1,9 @@
-// import "dotenv/config";
 const express = require("express");
 const cors = require("cors");
-import userRouter from "./routes/user.js";
-import raisedBedRouter from "./routes/raisedBed.js";
-import squareRouter from "./routes/square.js";
-import plantRouter from "./routes/plant.js";
+const { userRouter } = require("./routes/user.js");
+const { raisedBedRouter } = require("./routes/raisedBed.js");
+const { squareRouter } = require("./routes/square.js");
+const { plantRouter } = require("./routes/plant.js");
 
 const app = express();
 app.disable("x-powered-by");

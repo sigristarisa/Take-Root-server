@@ -1,6 +1,6 @@
-import dbClient from "../helpers/dbClient.js";
+const dbClient = require("../helpers/dbClient");
 
-export const createRaisedBed = async (userId, row, column) => {
+const createRaisedBed = async (userId, row, column) => {
   const newRaisedBed = await dbClient.raisedBed.create({
     data: {
       rows: Number(row),
@@ -18,7 +18,7 @@ export const createRaisedBed = async (userId, row, column) => {
   return newRaisedBed;
 };
 
-export const findRaisedBedById = async (raisedBedId) => {
+const findRaisedBedById = async (raisedBedId) => {
   const foundRaisedBed = await dbClient.raisedBed.findFirst({
     where: { id: raisedBedId },
     include: {
@@ -33,7 +33,7 @@ export const findRaisedBedById = async (raisedBedId) => {
   return foundRaisedBed;
 };
 
-export const changeRaisedBedNameById = async (raisedBedId, name) => {
+const changeRaisedBedNameById = async (raisedBedId, name) => {
   const updatedRaisedBed = await dbClient.raisedBed.update({
     where: { id: raisedBedId },
     data: { name },
@@ -42,7 +42,7 @@ export const changeRaisedBedNameById = async (raisedBedId, name) => {
   return updatedRaisedBed;
 };
 
-export const findAllRaisedBedByUserId = async (userId) => {
+const findAllRaisedBedByUserId = async (userId) => {
   const foundRaisedBed = await dbClient.raisedBed.findMany({
     where: { userId },
     include: {
@@ -61,7 +61,7 @@ export const findAllRaisedBedByUserId = async (userId) => {
   return foundRaisedBed;
 };
 
-export const removeRaisedBedById = async (raisedBedId) => {
+const removeRaisedBedById = async (raisedBedId) => {
   const deletingRaisedBed = await dbClient.raisedBed.deleteMany({
     where: { id: raisedBedId },
   });
@@ -69,7 +69,7 @@ export const removeRaisedBedById = async (raisedBedId) => {
   return deletingRaisedBed;
 };
 
-export const findOtherRaisedBeds = async (userId) => {
+const findOtherRaisedBeds = async (userId) => {
   const otherRaisedBeds = await dbClient.raisedBed.findMany({
     where: {
       userId: {
@@ -85,4 +85,13 @@ export const findOtherRaisedBeds = async (userId) => {
   });
 
   return otherRaisedBeds;
+};
+
+module.exports = {
+  createRaisedBed,
+  findRaisedBedById,
+  changeRaisedBedNameById,
+  findAllRaisedBedByUserId,
+  removeRaisedBedById,
+  findOtherRaisedBeds,
 };

@@ -253,4 +253,4 @@ const rawPlants = [
   },
 ];
 
-export default rawPlants;
+exports.rawPlants = rawPlants;

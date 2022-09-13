@@ -1,13 +1,13 @@
 const express = require("express");
-import { deletePlantIdsByRaisedBedId } from "../controllers/square.js";
-import {
+const { deletePlantIdsByRaisedBedId } = require("../controllers/square.js");
+const {
   createRaisedBedAndSquares,
   getRaisedBedById,
   updateRaisedBedNameById,
   getAllRaisedBedByUserId,
   deleteRaisedBedById,
   getOtherRaisedBeds,
-} from "../controllers/raisedBed.js";
+} = require("../controllers/raisedBed.js");
 
 const router = express.Router();
 
@@ -19,4 +19,4 @@ router.patch("/:raisedBedId", deletePlantIdsByRaisedBedId, getRaisedBedById);
 router.patch("/name/:raisedBedId", updateRaisedBedNameById);
 router.delete("/:raisedBedId", deleteRaisedBedById);
 
-export default router;
+module.exports = { raisedBedRouter: router };

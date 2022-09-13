@@ -1,6 +1,6 @@
-import dbClient from "../helpers/dbClient.js";
+const dbClient = require("../helpers/dbClient");
 
-export const findUser = async (key, value) => {
+const findUser = async (key, value) => {
   const foundUser = await dbClient.user.findUnique({
     where: {
       [key]: value,
@@ -9,9 +9,14 @@ export const findUser = async (key, value) => {
   return foundUser;
 };
 
-export const createUser = async (userName, email, password, userImage) => {
+const createUser = async (userName, email, password, userImage) => {
   const createdUser = await dbClient.user.create({
     data: { userName, email, password, userImage },
   });
   return createdUser;
+};
+
+module.exports = {
+  findUser,
+  createUser,
 };
