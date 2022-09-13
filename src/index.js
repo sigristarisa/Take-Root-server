@@ -1,5 +1,5 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
 import userRouter from "./routes/user.js";
 import raisedBedRouter from "./routes/raisedBed.js";
 import squareRouter from "./routes/square.js";

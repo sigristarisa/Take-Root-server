@@ -1,3 +1,4 @@
+import { Router } from "express";
 import {
   getSquareById,
   updateSquareById,
@@ -5,8 +6,7 @@ import {
 } from "../controllers/square.js";
 
 import { getRaisedBedById } from "../controllers/raisedBed.js";
-const express = require("express");
-const router = express.Router();
+const router = Router();
 
 router.get("/:squareId", getSquareById);
 router.patch("/", updateSquareById);
