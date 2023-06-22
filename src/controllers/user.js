@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET, JWT_EXPIRY } from "../helpers/config.js";
+import { JWT_SECRET } from "../helpers/config.js";
 import { findUser, createUser } from "../domain/user.js";
 
 export const signUp = async (req, res) => {
@@ -12,21 +12,24 @@ export const signUp = async (req, res) => {
 
     if (existingUserName) {
       res.status(400).json({ error: "user name already in use" });
+      console.log("run 1");
     }
     if (existingEmail) {
       res.status(400).json({ error: "email already in use" });
+      console.log("run 2");
     }
     if (password !== confirmPassword) {
       res.status(400).json({ error: "Please enter the same password" });
+      console.log("run 3");
     }
 
     const passwordHash = await bcrypt.hash(password, 8);
     const newUser = await createUser(userName, email, passwordHash, userImage);
+    console.log("JWT_SECRET", JWT_SECRET);
 
-    const token = jwt.sign({ data: newUser.id }, JWT_SECRET, {
-      expiresIn: JWT_EXPIRY,
-    });
+    const token = jwt.sign({ data: newUser.id }, JWT_SECRET);
 
+    console.log("run 4");
     res.json({ ...newUser, token: token });
   } catch (error) {
     console.error("What happened?: ", error.message);
