@@ -9,7 +9,11 @@ export const signUp = async (req, res) => {
   try {
     const existingUserName = await findUser("userName", userName);
     const existingEmail = await findUser("email", email);
+    console.log("user", existingUserName, "email", existingEmail);
 
+    if (existingUserName && existingEmail) {
+      res.status(400).json({ error: "user name & email already in use" });
+    }
     if (existingUserName) {
       res.status(400).json({ error: "user name already in use" });
     }
