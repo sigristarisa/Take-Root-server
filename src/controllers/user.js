@@ -9,19 +9,19 @@ export const signUp = async (req, res) => {
   try {
     const existingUserName = await findUser("userName", userName);
     const existingEmail = await findUser("email", email);
-    console.log("user", existingUserName, "email", existingEmail);
+    const errors = { error: [] };
 
-    if (existingUserName && existingEmail) {
-      res.status(400).json({ error: "user name & email already in use" });
-    }
     if (existingUserName) {
-      res.status(400).json({ error: "user name already in use" });
+      errors.error.push("user name already in use ");
     }
     if (existingEmail) {
-      res.status(400).json({ error: "email already in use" });
+      errors.error.push("email already in use ");
     }
     if (password !== confirmPassword) {
-      res.status(400).json({ error: "Please enter the same password" });
+      errors.error.push("Please enter the same password");
+    }
+    if (errors.error.length) {
+      res.status(400).json(errors);
     }
 
     const passwordHash = await bcrypt.hash(password, 8);
@@ -38,19 +38,27 @@ export const signUp = async (req, res) => {
 
 export const logIn = async (req, res) => {
   const { email, password } = req.body;
+  const errors = { error: [] };
 
   try {
     const existingUser = await findUser("email", email);
+
     if (!existingUser) {
-      res.status(401).json({ error: "Invalid email." });
+      errors.error.push("Invalid email ");
+      console.log("errors", errors);
+    } else {
+      const passwordIsValid = await bcrypt.compare(
+        password,
+        existingUser.password
+      );
+      if (!passwordIsValid) {
+        errors.error.push("Invalid password ");
+        console.log("errors", errors);
+      }
     }
 
-    const passwordIsValid = await bcrypt.compare(
-      password,
-      existingUser.password
-    );
-    if (!passwordIsValid) {
-      res.status(401).json({ error: "Invalid password." });
+    if (errors.error.length) {
+      res.status(401).json(errors);
     }
 
     const token = jwt.sign({ data: existingUser.id }, JWT_SECRET);
